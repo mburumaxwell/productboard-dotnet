@@ -1,7 +1,9 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <Description>
+      C# client library for using productboards's PUblic API.
+    </Description>
   </PropertyGroup>
 
   <ItemGroup>
