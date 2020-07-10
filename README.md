@@ -14,7 +14,6 @@ You can get your free API token from the portal:
 2. Go to **Workspace Settings** > **Integrations** > **Public API** > **Access Token**
 3. Click **+** to generate a new token
 
-
 The documentation that this Client is built on is available at https://developer.productboard.com
 
 ### Usage

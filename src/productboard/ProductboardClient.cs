@@ -43,7 +43,7 @@ namespace productboard
         /// </summary>
         /// <param name="note">The note's payload</param>
         /// <returns></returns>
-        public async Task<ProductboardResponse<CreatedNoteResult>> CreateNoteAsync(Note note)
+        public async Task<ProductboardResponse<NoteCreationResult>> CreateNoteAsync(Note note)
         {
             var json = JsonConvert.SerializeObject(note, serializerSettings);
             var content = new StringContent(json, Encoding.UTF8, "application/json");
@@ -54,7 +54,7 @@ namespace productboard
                 Content = content
             };
 
-            return await SendAsync<CreatedNoteResult>(request);
+            return await SendAsync<NoteCreationResult>(request);
         }
 
         private async Task<ProductboardResponse<T>> SendAsync<T>(HttpRequestMessage request)

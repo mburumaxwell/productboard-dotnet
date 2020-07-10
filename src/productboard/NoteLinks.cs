@@ -2,7 +2,9 @@
 
 namespace productboard
 {
-    ///
+    /// <summary>
+    /// Represents linkds for a created note
+    /// </summary>
     public class NoteLinks
     {
         /// <summary>
