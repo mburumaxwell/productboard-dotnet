@@ -13,21 +13,21 @@ namespace Microsoft.Extensions.DependencyInjection
     public static partial class IServiceCollectionExtensions
     {
         /// <summary>
-        /// Adds the <see cref="IHttpClientFactory"/> with <see cref="ProductboardClient"/> and
+        /// Adds the <see cref="IHttpClientFactory"/> with <see cref="ProductboardGdprClient"/> and
         /// related services to the <see cref="IServiceCollection"/>.
         /// </summary>
         /// <param name="services">The <see cref="IServiceCollection"/> in which to register the services.</param>
-        /// <param name="configuration">A configuration object with values for a <see cref="ProductboardClientOptions"/>.</param>
-        /// <param name="configureOptions">A delegate that is used to configure a <see cref="ProductboardClientOptions"/>.</param>
+        /// <param name="configuration">A configuration object with values for a <see cref="ProductboardGdprClientOptions"/>.</param>
+        /// <param name="configureOptions">A delegate that is used to configure a <see cref="ProductboardGdprClientOptions"/>.</param>
         /// <returns>An <see cref="IHttpClientBuilder" /> that can be used to configure the client.</returns>
-        public static IHttpClientBuilder AddProductboard(this IServiceCollection services,
+        public static IHttpClientBuilder AddProductboardGdpr(this IServiceCollection services,
                                                                IConfiguration configuration = null,
-                                                               Action<ProductboardClientOptions> configureOptions = null)
+                                                               Action<ProductboardGdprClientOptions> configureOptions = null)
         {
             // if we have a configuration, add it
             if (configuration != null)
             {
-                services.Configure<ProductboardClientOptions>(configuration);
+                services.Configure<ProductboardGdprClientOptions>(configuration);
             }
 
             // if we have a configuration action, add it
@@ -37,7 +37,7 @@ namespace Microsoft.Extensions.DependencyInjection
             }
 
             services
-                 .PostConfigure<ProductboardClientOptions>(o =>
+                 .PostConfigure<ProductboardGdprClientOptions>(o =>
                  {
                      if (string.IsNullOrWhiteSpace(o.Token))
                      {
@@ -51,50 +51,50 @@ namespace Microsoft.Extensions.DependencyInjection
 
                  });
 
-            services.TryAddTransient<ProductboardClient>(resolver => resolver.GetRequiredService<InjectableProductboardClient>());
+            services.TryAddTransient<ProductboardGdprClient>(resolver => resolver.GetRequiredService<InjectableProductboardGdprClient>());
 
-            return services.AddHttpClient<InjectableProductboardClient>();
+            return services.AddHttpClient<InjectableProductboardGdprClient>();
         }
 
         /// <summary>
-        /// Adds the <see cref="IHttpClientFactory"/> with <see cref="ProductboardClient"/> and
+        /// Adds the <see cref="IHttpClientFactory"/> with <see cref="ProductboardGdprClient"/> and
         /// related services to the <see cref="IServiceCollection"/>.
         /// </summary>
         /// <param name="services">The <see cref="IServiceCollection"/> in which to register the services.</param>
-        /// <param name="configureOptions">A delegate that is used to configure a <see cref="ProductboardClientOptions"/>.</param>
+        /// <param name="configureOptions">A delegate that is used to configure a <see cref="ProductboardGdprClientOptions"/>.</param>
         /// <returns>An <see cref="IHttpClientBuilder" /> that can be used to configure the client.</returns>
-        public static IHttpClientBuilder AddProductboard(this IServiceCollection services,
-                                                               Action<ProductboardClientOptions> configureOptions)
+        public static IHttpClientBuilder AddProductboardGdpr(this IServiceCollection services,
+                                                               Action<ProductboardGdprClientOptions> configureOptions)
         {
-            return services.AddProductboard(null, configureOptions);
+            return services.AddProductboardGdpr(null, configureOptions);
         }
 
         /// <summary>
-        /// Adds the <see cref="IHttpClientFactory"/> with <see cref="ProductboardClient"/> and
+        /// Adds the <see cref="IHttpClientFactory"/> with <see cref="ProductboardGdprClient"/> and
         /// related services to the <see cref="IServiceCollection"/>.
         /// </summary>
         /// <param name="services">The <see cref="IServiceCollection"/> in which to register the services.</param>
-        /// <param name="configuration">A configuration object with values for a <see cref="ProductboardClientOptions"/>.</param>
+        /// <param name="configuration">A configuration object with values for a <see cref="ProductboardGdprClientOptions"/>.</param>
         /// <returns>An <see cref="IHttpClientBuilder" /> that can be used to configure the client.</returns>
-        public static IHttpClientBuilder AddProductboard(this IServiceCollection services, IConfiguration configuration)
+        public static IHttpClientBuilder AddProductboardGdpr(this IServiceCollection services, IConfiguration configuration)
         {
-            return services.AddProductboard(configuration, null);
+            return services.AddProductboardGdpr(configuration, null);
         }
 
         /// <summary>
-        /// Adds the <see cref="IHttpClientFactory"/> with <see cref="ProductboardClient"/> and
+        /// Adds the <see cref="IHttpClientFactory"/> with <see cref="ProductboardGdprClient"/> and
         /// related services to the <see cref="IServiceCollection"/>.
         /// </summary>
         /// <param name="services">The <see cref="IServiceCollection"/> in which to register the services.</param>
         /// <param name="token">
         /// The token used to access the productboard API.
-        /// This value maps to <see cref="ProductboardClientOptions.Token"/>
+        /// This value maps to <see cref="ProductboardGdprClientOptions.Token"/>
         /// </param>
         /// <returns>An <see cref="IHttpClientBuilder" /> that can be used to configure the client.</returns>
-        public static IHttpClientBuilder AddProductboard(this IServiceCollection services,
+        public static IHttpClientBuilder AddProductboardGdpr(this IServiceCollection services,
                                                                string token)
         {
-            return services.AddProductboard(o =>
+            return services.AddProductboardGdpr(o =>
             {
                 o.Token = token;
             });
