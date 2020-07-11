@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using productboard.Errors;
+using productboard.Models;
 using System;
 using System.IO;
 using System.Net.Http;
@@ -25,7 +26,7 @@ namespace productboard
         /// </summary>
         /// <param name="email"></param>
         /// <returns></returns>
-        public async Task<ProductboardGdprResponse<object>> DeleteAllClientDataAsync(string email)
+        public async Task<ProductboardGdprResponse<GdprDeletionResult>> DeleteAllClientDataAsync(string email)
         {
             if (string.IsNullOrWhiteSpace(email))
             {
@@ -35,7 +36,7 @@ namespace productboard
             var emailEncoded = Uri.EscapeDataString(email);
             var url = new Uri(Options.BaseUrl, $"/v1/customers/delete_all_data?email={emailEncoded}");
             var request = new HttpRequestMessage(HttpMethod.Delete, url);
-            return await SendAsync<object>(request);
+            return await SendAsync<GdprDeletionResult>(request);
         }
 
 
