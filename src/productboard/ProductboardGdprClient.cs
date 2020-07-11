@@ -3,7 +3,6 @@ using productboard.Errors;
 using System;
 using System.IO;
 using System.Net.Http;
-using System.Net.Http.Headers;
 using System.Threading.Tasks;
 
 namespace productboard
@@ -26,7 +25,7 @@ namespace productboard
         /// </summary>
         /// <param name="email"></param>
         /// <returns></returns>
-        public async Task<ProductboardResponse<object>> DeleteAllClientDataAsync(string email)
+        public async Task<ProductboardGdprResponse<object>> DeleteAllClientDataAsync(string email)
         {
             if (string.IsNullOrWhiteSpace(email))
             {
@@ -40,21 +39,21 @@ namespace productboard
         }
 
 
-        private async Task<ProductboardResponse<T>> SendAsync<T>(HttpRequestMessage request)
+        private async Task<ProductboardGdprResponse<T>> SendAsync<T>(HttpRequestMessage request)
             where T : class, new()
         {
-            request.Headers.Authorization = new AuthenticationHeaderValue("Private-Token", Options.Token);
+            request.Headers.TryAddWithoutValidation("Private-Token", Options.Token);
 
             using (var response = await HttpClient.SendAsync(request))
             {
-                var str = await response.Content.ReadAsStringAsync(); //remove
+                var str = await response.Content.ReadAsStringAsync(); // remove
                 using (var stream = await response.Content.ReadAsStreamAsync())
                 {
                     using (var streamReader = new StreamReader(stream))
                     {
                         using (var jsonReader = new JsonTextReader(streamReader))
                         {
-                            var result = new ProductboardResponse<T>
+                            var result = new ProductboardGdprResponse<T>
                             {
                                 StatusCode = response.StatusCode,
                                 IsSuccessful = response.IsSuccessStatusCode
@@ -63,7 +62,7 @@ namespace productboard
                             var serializer = JsonSerializer.Create(Options.SerializerSettings);
                             if (!response.IsSuccessStatusCode)
                             {
-                                result.Error = serializer.Deserialize<ProductboardErrorResponse>(jsonReader);
+                                result.Error = serializer.Deserialize<ProductboardGdprErrorResponse>(jsonReader);
                             }
                             else
                             {

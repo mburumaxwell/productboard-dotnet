@@ -3,7 +3,7 @@
 namespace productboard.Errors
 {
     /// <summary>
-    /// The result send incase of an error
+    /// The result sent incase of an error from the Public APIs
     /// </summary>
     public class ProductboardErrorResponse
     {
