@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace productboard
+﻿namespace productboard
 {
     /// <summary>
     /// Options for configuring the <see cref="ProductboardGdprClient"/>

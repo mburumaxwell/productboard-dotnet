@@ -35,7 +35,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "productboard.Extensions.Dep
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "productboard.Tests", "test\productboard.Tests\productboard.Tests.csproj", "{B12D949C-BA56-475D-ACB5-0E09043A52E2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExamplesSimple", "examples\ExamplesSimple\ExamplesSimple.csproj", "{547D7034-8EEF-4356-9467-05B3A786B04F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExampleSimple", "examples\ExampleSimple\ExampleSimple.csproj", "{547D7034-8EEF-4356-9467-05B3A786B04F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExampleDependencyInjection", "examples\ExampleDependencyInjection\ExampleDependencyInjection.csproj", "{01C69F6E-1EEF-40A0-8CD1-F71E33A42149}"
 EndProject
