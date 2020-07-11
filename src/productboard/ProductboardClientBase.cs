@@ -24,7 +24,7 @@ namespace productboard
         protected ProductboardClientBase(TOptions options, HttpClient httpClient = null)
         {
             Options = options ?? throw new ArgumentNullException(nameof(options));
-            HttpClient = httpClient ?? new HttpClient();
+            BackChannel = httpClient ?? new HttpClient();
 
             if (options.BaseUrl == null)
             {
@@ -34,13 +34,13 @@ namespace productboard
             // populate the User-Agent header
             var productVersion = typeof(ProductboardClient).Assembly.GetName().Version.ToString();
             var userAgent = new ProductInfoHeaderValue("productboard-dotnet", productVersion);
-            HttpClient.DefaultRequestHeaders.UserAgent.Add(userAgent);
+            BackChannel.DefaultRequestHeaders.UserAgent.Add(userAgent);
         }
 
         /// <summary>
         /// The client for making HTTP requests
         /// </summary>
-        protected HttpClient HttpClient { get; }
+        protected HttpClient BackChannel { get; }
 
         /// <summary>
         /// The options for configuring the client
@@ -153,7 +153,7 @@ namespace productboard
             Authenticate(request);
 
             // execute the request
-            return await HttpClient.SendAsync(request, cancellationToken);
+            return await BackChannel.SendAsync(request, cancellationToken);
         }
     }
 }
