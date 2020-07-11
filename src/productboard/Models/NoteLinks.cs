@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace productboard
+namespace productboard.Models
 {
     /// <summary>
     /// Represents linkds for a created note

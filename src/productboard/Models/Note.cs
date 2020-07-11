@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System.Collections.Generic;
 
-namespace productboard
+namespace productboard.Models
 {
     /// <summary>
     /// A model for creating notes on productboard
