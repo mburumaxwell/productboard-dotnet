@@ -3,50 +3,50 @@ using System;
 using System.IO;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace productboard
 {
     /// <summary>
-    /// A client, used to make requests to productboard's Public APIs and deserialize responses.
+    /// A client, used to make requests to productboard's GDPR API and deserialize responses.
     /// </summary>
-    public class ProductboardClient : ProductboardClientBase<ProductboardClientOptions>
+    public class ProductboardGdprClient : ProductboardClientBase<ProductboardGdprClientOptions>
     {
         /// <summary>
-        /// Creates an instance if <see cref="ProductboardClient"/>
+        /// Creates an instance if <see cref="ProductboardGdprClient"/>
         /// </summary>
         /// <param name="httpClient"></param>
         /// <param name="options">The options for configuring the client</param>
-        public ProductboardClient(ProductboardClientOptions options, HttpClient httpClient = null)
+        public ProductboardGdprClient(ProductboardGdprClientOptions options, HttpClient httpClient = null)
             : base(options, httpClient) { }
 
         /// <summary>
-        /// Creates a note.
+        /// Delete data associated with a particular customer.
         /// </summary>
-        /// <param name="note">The note's payload</param>
+        /// <param name="email"></param>
         /// <returns></returns>
-        public async Task<ProductboardResponse<NoteCreationResult>> CreateNoteAsync(Note note)
+        public async Task<ProductboardResponse<object>> DeleteAllClientDataAsync(string email)
         {
-            var json = JsonConvert.SerializeObject(note, Options.SerializerSettings);
-            var content = new StringContent(json, Encoding.UTF8, "application/json");
-
-            var url = new Uri(Options.BaseUrl, "/notes");
-            var request = new HttpRequestMessage(HttpMethod.Post, url)
+            if (string.IsNullOrWhiteSpace(email))
             {
-                Content = content
-            };
+                throw new ArgumentNullException(nameof(email));
+            }
 
-            return await SendAsync<NoteCreationResult>(request);
+            var emailEncoded = Uri.EscapeDataString(email);
+            var url = new Uri(Options.BaseUrl, $"/v1/customers/delete_all_data?email={emailEncoded}");
+            var request = new HttpRequestMessage(HttpMethod.Delete, url);
+            return await SendAsync<object>(request);
         }
+
 
         private async Task<ProductboardResponse<T>> SendAsync<T>(HttpRequestMessage request)
             where T : class, new()
         {
-            request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", Options.Token);
+            request.Headers.Authorization = new AuthenticationHeaderValue("Private-Token", Options.Token);
 
             using (var response = await HttpClient.SendAsync(request))
             {
+                var str = await response.Content.ReadAsStringAsync(); //remove
                 using (var stream = await response.Content.ReadAsStreamAsync())
                 {
                     using (var streamReader = new StreamReader(stream))
@@ -75,5 +75,6 @@ namespace productboard
                 }
             }
         }
+
     }
 }
