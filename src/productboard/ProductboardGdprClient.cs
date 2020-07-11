@@ -1,8 +1,5 @@
-﻿using Newtonsoft.Json;
-using productboard.Errors;
-using productboard.Models;
+﻿using productboard.Models;
 using System;
-using System.IO;
 using System.Net.Http;
 using System.Threading.Tasks;
 
@@ -26,7 +23,7 @@ namespace productboard
         /// </summary>
         /// <param name="email"></param>
         /// <returns></returns>
-        public async Task<ProductboardGdprResponse<GdprDeletionResult>> DeleteAllClientDataAsync(string email)
+        public async Task<ProductboardResponse<GdprDeletionResult>> DeleteAllClientDataAsync(string email)
         {
             if (string.IsNullOrWhiteSpace(email))
             {
@@ -39,43 +36,10 @@ namespace productboard
             return await SendAsync<GdprDeletionResult>(request);
         }
 
-
-        private async Task<ProductboardGdprResponse<T>> SendAsync<T>(HttpRequestMessage request)
-            where T : class, new()
+        /// <inheritdoc/>
+        protected override void Authenticate(HttpRequestMessage request)
         {
             request.Headers.TryAddWithoutValidation("Private-Token", Options.Token);
-
-            using (var response = await HttpClient.SendAsync(request))
-            {
-                var str = await response.Content.ReadAsStringAsync(); // remove
-                using (var stream = await response.Content.ReadAsStreamAsync())
-                {
-                    using (var streamReader = new StreamReader(stream))
-                    {
-                        using (var jsonReader = new JsonTextReader(streamReader))
-                        {
-                            var result = new ProductboardGdprResponse<T>
-                            {
-                                StatusCode = response.StatusCode,
-                                IsSuccessful = response.IsSuccessStatusCode
-                            };
-
-                            var serializer = JsonSerializer.Create(Options.SerializerSettings);
-                            if (!response.IsSuccessStatusCode)
-                            {
-                                result.Error = serializer.Deserialize<ProductboardGdprErrorResponse>(jsonReader);
-                            }
-                            else
-                            {
-                                result.Resource = serializer.Deserialize<T>(jsonReader);
-                            }
-
-                            return result;
-                        }
-                    }
-                }
-            }
         }
-
     }
 }

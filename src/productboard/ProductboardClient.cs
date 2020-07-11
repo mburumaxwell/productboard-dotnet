@@ -1,8 +1,6 @@
 ﻿using Newtonsoft.Json;
-using productboard.Errors;
 using productboard.Models;
 using System;
-using System.IO;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
@@ -42,40 +40,10 @@ namespace productboard
             return await SendAsync<NoteCreationResult>(request);
         }
 
-        private async Task<ProductboardResponse<T>> SendAsync<T>(HttpRequestMessage request)
-            where T : class, new()
+        /// <inheritdoc/>
+        protected override void Authenticate(HttpRequestMessage request)
         {
             request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", Options.Token);
-
-            using (var response = await HttpClient.SendAsync(request))
-            {
-                using (var stream = await response.Content.ReadAsStreamAsync())
-                {
-                    using (var streamReader = new StreamReader(stream))
-                    {
-                        using (var jsonReader = new JsonTextReader(streamReader))
-                        {
-                            var result = new ProductboardResponse<T>
-                            {
-                                StatusCode = response.StatusCode,
-                                IsSuccessful = response.IsSuccessStatusCode
-                            };
-
-                            var serializer = JsonSerializer.Create(Options.SerializerSettings);
-                            if (!response.IsSuccessStatusCode)
-                            {
-                                result.Error = serializer.Deserialize<ProductboardErrorResponse>(jsonReader);
-                            }
-                            else
-                            {
-                                result.Resource = serializer.Deserialize<T>(jsonReader);
-                            }
-
-                            return result;
-                        }
-                    }
-                }
-            }
         }
     }
 }
