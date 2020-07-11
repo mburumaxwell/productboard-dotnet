@@ -1,10 +1,8 @@
 using productboard.Models;
-using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
 using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -23,6 +21,8 @@ namespace productboard.Tests
 
             var handler = new DynamicHttpMessageHandler(async (req, ct) =>
             {
+                Assert.Equal(HttpMethod.Post, req.Method);
+
                 Assert.NotNull(req.Headers.Authorization);
                 Assert.Equal($"Bearer {token}", req.Headers.Authorization.ToString());
 
@@ -74,6 +74,8 @@ namespace productboard.Tests
 
             var handler = new DynamicHttpMessageHandler(async (req, ct) =>
             {
+                Assert.Equal(HttpMethod.Post, req.Method);
+
                 Assert.NotNull(req.Headers.Authorization);
                 Assert.Equal($"Bearer {token}", req.Headers.Authorization.ToString());
 
@@ -133,6 +135,8 @@ namespace productboard.Tests
 
             var handler = new DynamicHttpMessageHandler(async (req, ct) =>
             {
+                Assert.Equal(HttpMethod.Post, req.Method);
+
                 Assert.NotNull(req.Headers.Authorization);
                 Assert.Equal($"Bearer {token}", req.Headers.Authorization.ToString());
 
@@ -182,21 +186,6 @@ namespace productboard.Tests
             Assert.False(response.Error.Ok);
             Assert.NotNull(response.Error.Errors);
             Assert.NotNull(response.Error.Errors.Source);
-        }
-
-        class DynamicHttpMessageHandler : HttpMessageHandler
-        {
-            private readonly Func<HttpRequestMessage, CancellationToken, Task<HttpResponseMessage>> processFunc;
-
-            public DynamicHttpMessageHandler(Func<HttpRequestMessage, CancellationToken, Task<HttpResponseMessage>> processFunc)
-            {
-                this.processFunc = processFunc ?? throw new ArgumentNullException(nameof(processFunc));
-            }
-
-            protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
-            {
-                return processFunc(request, cancellationToken);
-            }
         }
     }
 }
