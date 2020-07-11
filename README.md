@@ -8,18 +8,32 @@ More about productboard on the [website](https://productboard.com).
 The productboard dotnet NuGet package makes it easier to use the productboard Public API from your dotnet (netstandard2.0+)
 projects without having to build your own API calls.
 
-You can get your free API token from the portal:
+You can get a Public API token from the portal:
 
 1. Log in to the productboard app in a web browser
 2. Go to **Workspace Settings** > **Integrations** > **Public API** > **Access Token**
 3. Click **+** to generate a new token
 
-The documentation that this Client is built on is available at https://developer.productboard.com
+You can get a GDPR token from the portal:
+
+1. Log in to the productboard app in a web browser
+2. Go to **Workspace Settings** > **Integrations** > **Public API** > **GDPR Public API**
+3. Click **+** to generate a new token
+
+### Important
+
+The APIs used to create Notes and the one used to delete all customer data are different even though they share teh same base address (https://api.productboard.com). They use different tokens. Using one for the other will result in 401 (Unauthorized). Ensure you use the correct token for the usage you have.
+
+This libray is build using the publicly available documentation. The one for the Public API is available at [https://developer.productboard.com](https://developer.productboard.com). Whereas the one for the GDPR Public API is available in the help docs at [https://help.productboard.com/en/articles/1947849-delete-customer-data-from-productboard](https://help.productboard.com/en/articles/1947849-delete-customer-data-from-productboard).
+
 
 ### Usage
 
+To create a note, use the `ProductboardClient` and `ProductboardClientOptions` types, and the `services.AddProductBoard(...)` extension method.
+
 ```csharp
-var options = new ProductboardClientOptions {
+var options = new ProductboardClientOptions
+{
     Token = "your-token-here"
 };
 var client = new ProductboardClient(options);
@@ -46,6 +60,20 @@ var created = response.Resource;
 Console.Write("Note created!");
 Console.Write($" Id = {created.Data.Id}");
 Console.WriteLine($"Url: {created.Links.Html}");
+```
+
+To delete all customer data, use the `ProductboardGdprClient` and `ProductboardGdprClientOptions` types, and the `services.AddProductBoardGdpr(...)` extension method.
+
+```csharp
+var options = new ProductboardGdprClientOptions
+{
+    Token = "your-token-here"
+};
+var client = new ProductboardGdprClient(options);
+
+var response = await client.DeleteAllClientDataAsync("customer@example.com");
+var result = response.Resource;
+Console.WriteLine(result.Message);
 ```
 
 See [examples](./examples/) for more.
