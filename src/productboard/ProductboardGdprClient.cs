@@ -1,6 +1,7 @@
 ﻿using productboard.Models;
 using System;
 using System.Net.Http;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace productboard
@@ -22,8 +23,9 @@ namespace productboard
         /// Delete data associated with a particular customer.
         /// </summary>
         /// <param name="email"></param>
+        /// <param name="cancellationToken">the token to cancel the request</param>
         /// <returns></returns>
-        public async Task<ProductboardResponse<GdprDeletionResult>> DeleteAllClientDataAsync(string email)
+        public async Task<ProductboardResponse<GdprDeletionResult>> DeleteAllClientDataAsync(string email, CancellationToken cancellationToken = default)
         {
             if (string.IsNullOrWhiteSpace(email))
             {
@@ -33,7 +35,7 @@ namespace productboard
             var emailEncoded = Uri.EscapeDataString(email);
             var url = new Uri(Options.BaseUrl, $"/v1/customers/delete_all_data?email={emailEncoded}");
             var request = new HttpRequestMessage(HttpMethod.Delete, url);
-            return await SendAsync<GdprDeletionResult>(request);
+            return await SendAsync<GdprDeletionResult>(request, cancellationToken);
         }
 
         /// <inheritdoc/>

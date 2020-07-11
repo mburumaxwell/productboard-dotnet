@@ -4,6 +4,7 @@ using System;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace productboard
@@ -25,9 +26,13 @@ namespace productboard
         /// Creates a note.
         /// </summary>
         /// <param name="note">The note's payload</param>
+        /// <param name="cancellationToken">the token to cancel the request</param>
         /// <returns></returns>
-        public async Task<ProductboardResponse<NoteCreationResult>> CreateNoteAsync(Note note)
+        public async Task<ProductboardResponse<NoteCreationResult>> CreateNoteAsync(Note note, CancellationToken cancellationToken = default)
         {
+            // ensure note is not null
+            if (note == null) throw new ArgumentNullException(nameof(note));
+
             var json = JsonConvert.SerializeObject(note, Options.SerializerSettings);
             var content = new StringContent(json, Encoding.UTF8, "application/json");
 
@@ -37,7 +42,7 @@ namespace productboard
                 Content = content
             };
 
-            return await SendAsync<NoteCreationResult>(request);
+            return await SendAsync<NoteCreationResult>(request, cancellationToken);
         }
 
         /// <inheritdoc/>
