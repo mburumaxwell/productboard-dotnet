@@ -1,9 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <Description>
-      Integrate productboard Client with HttpClientFactory and Microsoft.Extensions.DependencyInjection
-    </Description>
+    <Description>Integrate productboard Client with HttpClientFactory and Microsoft.Extensions.DependencyInjection</Description>
   </PropertyGroup>
 
   <ItemGroup>

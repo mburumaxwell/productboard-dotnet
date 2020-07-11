@@ -3,10 +3,13 @@
 namespace productboard
 {
     /// <summary>
+    /// Represents the source of the Note
+    /// </summary>
+    /// <remarks>
     /// For entities that originated in external systems and entered
     /// productboard via the API or integrations, the source keeps track of the
     /// original source entity in that origin system(s)
-    /// </summary>
+    /// </remarks>
     public class Source
     {
         /// <summary>

@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System.Collections.Generic;
 
-namespace productboard
+namespace productboard.Models
 {
     /// <summary>
     /// A model for creating notes on productboard
@@ -38,13 +38,17 @@ namespace productboard
         [JsonProperty("display_url")]
         public string DisplayUrl { get; set; }
 
-        ///
+        /// <summary>
+        /// For entities that originated in external systems and entered
+        /// productboard via the API or integrations, the source keeps track of the
+        /// original source entity in that origin system(s)
+        /// </summary>
         [JsonProperty("source")]
         public Source Source { get; set; }
 
         /// <summary>
         /// A set of tags for categorizing the note; tag uniqueness is case-and diacritic-insensitive,
-        /// so Apple, APPLE, and äpple will all end up assigned to the same tag, and the tag displayed
+        /// so <c>Apple</c>, <c>APPLE</c>, and <c>äpple</c> will all end up assigned to the same tag, and the tag displayed
         /// will be whichever variant was first(chronologically) entered into productboard.
         /// </summary>
         /// <example>

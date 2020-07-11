@@ -1,22 +1,24 @@
-﻿using System.Net;
+﻿using productboard.Errors;
+using System.Net;
 
 namespace productboard
 {
     /// <summary>
-    /// productboard API Response
+    /// The response from productboard Public APIs
     /// </summary>
-    /// <typeparam name="T"></typeparam>
-    public class ProductboardResponse<T> where T : class, new()
+    /// <typeparam name="TResource">The type of resource</typeparam>
+    /// <typeparam name="TError">The type of error</typeparam>
+    public class ProductboardResponse<TResource, TError>
     {
         /// <summary>
         /// The resource extracted from the response body
         /// </summary>
-        public T Resource { get; set; }
+        public TResource Resource { get; set; }
 
         /// <summary>
         /// The error extracted from the response body
         /// </summary>
-        public ProductboardErrorResponse Error { get; set; }
+        public TError Error { get; set; }
 
         /// <summary>
         /// Status code response from the API
@@ -27,6 +29,13 @@ namespace productboard
         /// Indicates whether a request has succeeded
         /// </summary>
         public bool IsSuccessful { get; set; }
+    }
 
+    /// <summary>
+    /// The response from productboard Public APIs
+    /// </summary>
+    /// <typeparam name="TResource">The type of resource</typeparam>
+    public class ProductboardResponse<TResource> : ProductboardResponse<TResource, ProductboardErrorResponse>
+    {
     }
 }

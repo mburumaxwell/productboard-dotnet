@@ -3,14 +3,14 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30225.117
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "productboard", "src\productboard\productboard.csproj", "{0B574434-1B75-4D29-9A97-6F153CCB4AB9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "productboard", "src\productboard\productboard.csproj", "{0B574434-1B75-4D29-9A97-6F153CCB4AB9}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{56CFC3BD-A6BD-40BF-A771-5E239E08A251}"
 	ProjectSection(SolutionItems) = preProject
 		src\Directory.Build.props = src\Directory.Build.props
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "productboard.Extensions.DependencyInjection", "src\productboard.Extensions.DependencyInjection\productboard.Extensions.DependencyInjection.csproj", "{42B7EA10-B09C-4BDB-94B3-6440416A4E19}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "productboard.Extensions.DependencyInjection", "src\productboard.Extensions.DependencyInjection\productboard.Extensions.DependencyInjection.csproj", "{42B7EA10-B09C-4BDB-94B3-6440416A4E19}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "examples", "examples", "{42D777EF-7CF2-4E6F-AF9A-B5FF0700553F}"
 	ProjectSection(SolutionItems) = preProject
@@ -31,9 +31,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		README.md = README.md
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "productboard.Extensions.DependencyInjection.Tests", "test\productboard.Extensions.DependencyInjection.Tests\productboard.Extensions.DependencyInjection.Tests.csproj", "{A0B819F0-7EC1-4F6E-BA0D-922985F220AE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "productboard.Extensions.DependencyInjection.Tests", "test\productboard.Extensions.DependencyInjection.Tests\productboard.Extensions.DependencyInjection.Tests.csproj", "{A0B819F0-7EC1-4F6E-BA0D-922985F220AE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "productboard.Tests", "test\productboard.Tests\productboard.Tests.csproj", "{B12D949C-BA56-475D-ACB5-0E09043A52E2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "productboard.Tests", "test\productboard.Tests\productboard.Tests.csproj", "{B12D949C-BA56-475D-ACB5-0E09043A52E2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExampleSimple", "examples\ExampleSimple\ExampleSimple.csproj", "{547D7034-8EEF-4356-9467-05B3A786B04F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExampleDependencyInjection", "examples\ExampleDependencyInjection\ExampleDependencyInjection.csproj", "{01C69F6E-1EEF-40A0-8CD1-F71E33A42149}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExampleGDPR", "examples\ExampleGDPR\ExampleGDPR.csproj", "{4D266C58-F767-449E-BC90-DCE37FF7D307}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -57,6 +63,18 @@ Global
 		{B12D949C-BA56-475D-ACB5-0E09043A52E2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B12D949C-BA56-475D-ACB5-0E09043A52E2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B12D949C-BA56-475D-ACB5-0E09043A52E2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{547D7034-8EEF-4356-9467-05B3A786B04F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{547D7034-8EEF-4356-9467-05B3A786B04F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{547D7034-8EEF-4356-9467-05B3A786B04F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{547D7034-8EEF-4356-9467-05B3A786B04F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{01C69F6E-1EEF-40A0-8CD1-F71E33A42149}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{01C69F6E-1EEF-40A0-8CD1-F71E33A42149}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{01C69F6E-1EEF-40A0-8CD1-F71E33A42149}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{01C69F6E-1EEF-40A0-8CD1-F71E33A42149}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4D266C58-F767-449E-BC90-DCE37FF7D307}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4D266C58-F767-449E-BC90-DCE37FF7D307}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4D266C58-F767-449E-BC90-DCE37FF7D307}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4D266C58-F767-449E-BC90-DCE37FF7D307}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -66,6 +84,9 @@ Global
 		{42B7EA10-B09C-4BDB-94B3-6440416A4E19} = {56CFC3BD-A6BD-40BF-A771-5E239E08A251}
 		{A0B819F0-7EC1-4F6E-BA0D-922985F220AE} = {88003219-BE52-4B7F-B65C-ED06C89C82B9}
 		{B12D949C-BA56-475D-ACB5-0E09043A52E2} = {88003219-BE52-4B7F-B65C-ED06C89C82B9}
+		{547D7034-8EEF-4356-9467-05B3A786B04F} = {42D777EF-7CF2-4E6F-AF9A-B5FF0700553F}
+		{01C69F6E-1EEF-40A0-8CD1-F71E33A42149} = {42D777EF-7CF2-4E6F-AF9A-B5FF0700553F}
+		{4D266C58-F767-449E-BC90-DCE37FF7D307} = {42D777EF-7CF2-4E6F-AF9A-B5FF0700553F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {99DB2F0E-A76B-4434-81AB-14CE41331527}

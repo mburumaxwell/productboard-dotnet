@@ -2,7 +2,8 @@ trigger:
   batch: true
   branches:
     include:
-      - master
+      # - master
+      - refs/tags/*
   paths:
     exclude: # no need to rebuild on changes in documentation
       - README.md
@@ -75,6 +76,7 @@ stages:
 
 - stage: Release
   dependsOn: Build
+  condition: and(succeeded(), not(startsWith(variables['Build.SourceBranch'], 'refs/pull/')))
   jobs:
     - deployment: NugetOrg
       environment: NugetOrg
