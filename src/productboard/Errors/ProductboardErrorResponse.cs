@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace productboard
+namespace productboard.Errors
 {
     /// <summary>
     /// The result send incase of an error

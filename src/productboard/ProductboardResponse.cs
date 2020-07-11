@@ -1,4 +1,5 @@
-﻿using System.Net;
+﻿using productboard.Errors;
+using System.Net;
 
 namespace productboard
 {
@@ -27,6 +28,5 @@ namespace productboard
         /// Indicates whether a request has succeeded
         /// </summary>
         public bool IsSuccessful { get; set; }
-
     }
 }

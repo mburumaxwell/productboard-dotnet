@@ -28,7 +28,7 @@ namespace productboard
             // populate the User-Agent header
             var productVersion = typeof(ProductboardClient).Assembly.GetName().Version.ToString();
             var userAgent = new ProductInfoHeaderValue("productboard-dotnet", productVersion);
-            this.HttpClient.DefaultRequestHeaders.UserAgent.Add(userAgent);
+            HttpClient.DefaultRequestHeaders.UserAgent.Add(userAgent);
         }
 
         /// <summary>

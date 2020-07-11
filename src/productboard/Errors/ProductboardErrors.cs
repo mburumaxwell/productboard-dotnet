@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace productboard
+namespace productboard.Errors
 {
     /// <summary>
     /// The detailed errors used with <see cref="ProductboardErrorResponse"/>
