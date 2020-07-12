@@ -26,6 +26,17 @@ The APIs used to create Notes and the one used to delete all customer data are d
 
 This libray is build using the publicly available documentation. The one for the Public API is available at [https://developer.productboard.com](https://developer.productboard.com). Whereas the one for the GDPR Public API is available in the help docs at [https://help.productboard.com/en/articles/1947849-delete-customer-data-from-productboard](https://help.productboard.com/en/articles/1947849-delete-customer-data-from-productboard).
 
+### Installation
+
+To install using Package Manager Console use:
+> Install-Package productboard  
+> Install-Package productboard.Extensions.DependencyInjection
+
+To install using dotnet cli use:
+> dotnet add productboard  
+> dotnet add productboard.Extensions.DependencyInjection
+
+Alternatively, you can use the NuGet package manager in Visual Studio by searching for `productboard` or `productboard.Extensions.DependencyInjection` and then click install.
 
 ### Usage
 
