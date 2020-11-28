@@ -6,9 +6,6 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "productboard", "src\productboard\productboard.csproj", "{0B574434-1B75-4D29-9A97-6F153CCB4AB9}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{56CFC3BD-A6BD-40BF-A771-5E239E08A251}"
-	ProjectSection(SolutionItems) = preProject
-		src\Directory.Build.props = src\Directory.Build.props
-	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "examples", "examples", "{42D777EF-7CF2-4E6F-AF9A-B5FF0700553F}"
 	ProjectSection(SolutionItems) = preProject
