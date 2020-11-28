@@ -10,8 +10,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{56CFC3BD-A6B
 		src\Directory.Build.props = src\Directory.Build.props
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "productboard.Extensions.DependencyInjection", "src\productboard.Extensions.DependencyInjection\productboard.Extensions.DependencyInjection.csproj", "{42B7EA10-B09C-4BDB-94B3-6440416A4E19}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "examples", "examples", "{42D777EF-7CF2-4E6F-AF9A-B5FF0700553F}"
 	ProjectSection(SolutionItems) = preProject
 		examples\Directory.Build.props = examples\Directory.Build.props
@@ -49,10 +47,6 @@ Global
 		{0B574434-1B75-4D29-9A97-6F153CCB4AB9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0B574434-1B75-4D29-9A97-6F153CCB4AB9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0B574434-1B75-4D29-9A97-6F153CCB4AB9}.Release|Any CPU.Build.0 = Release|Any CPU
-		{42B7EA10-B09C-4BDB-94B3-6440416A4E19}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{42B7EA10-B09C-4BDB-94B3-6440416A4E19}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{42B7EA10-B09C-4BDB-94B3-6440416A4E19}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{42B7EA10-B09C-4BDB-94B3-6440416A4E19}.Release|Any CPU.Build.0 = Release|Any CPU
 		{B12D949C-BA56-475D-ACB5-0E09043A52E2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{B12D949C-BA56-475D-ACB5-0E09043A52E2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B12D949C-BA56-475D-ACB5-0E09043A52E2}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -75,7 +69,6 @@ Global
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{0B574434-1B75-4D29-9A97-6F153CCB4AB9} = {56CFC3BD-A6BD-40BF-A771-5E239E08A251}
-		{42B7EA10-B09C-4BDB-94B3-6440416A4E19} = {56CFC3BD-A6BD-40BF-A771-5E239E08A251}
 		{B12D949C-BA56-475D-ACB5-0E09043A52E2} = {88003219-BE52-4B7F-B65C-ED06C89C82B9}
 		{547D7034-8EEF-4356-9467-05B3A786B04F} = {42D777EF-7CF2-4E6F-AF9A-B5FF0700553F}
 		{01C69F6E-1EEF-40A0-8CD1-F71E33A42149} = {42D777EF-7CF2-4E6F-AF9A-B5FF0700553F}

@@ -2,7 +2,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\productboard\productboard.csproj" />
-    <ProjectReference Include="..\..\src\productboard.Extensions.DependencyInjection\productboard.Extensions.DependencyInjection.csproj" />
   </ItemGroup>
 
 </Project>

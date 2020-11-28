@@ -1,7 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using productboard;
-using productboard.Extensions.DependencyInjection;
 using System;
 using System.Net.Http;
 

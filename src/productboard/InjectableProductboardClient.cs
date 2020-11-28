@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.Options;
 using System.Net.Http;
 
-namespace productboard.Extensions.DependencyInjection
+namespace productboard
 {
     /// <summary>
     /// A wrapped <see cref="ProductboardClient"/> with single constructor to inject an <see cref="HttpClient"/>

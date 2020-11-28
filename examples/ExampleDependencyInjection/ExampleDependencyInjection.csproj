@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\productboard.Extensions.DependencyInjection\productboard.Extensions.DependencyInjection.csproj" />
+    <ProjectReference Include="..\..\src\productboard\productboard.csproj" />
   </ItemGroup>
 
 </Project>
