@@ -22,9 +22,9 @@ You can get a GDPR token from the portal:
 
 ### Important
 
-The APIs used to create Notes and the one used to delete all customer data are different even though they share teh same base address (https://api.productboard.com). They use different tokens. Using one for the other will result in 401 (Unauthorized). Ensure you use the correct token for the usage you have.
+The APIs used to create Notes and the one used to delete all customer data are different even though they share the same base address (https://api.productboard.com). They use different tokens. Using one for the other will result in 401 (Unauthorized). Ensure you use the correct token for the usage you have.
 
-This libray is build using the publicly available documentation. The one for the Public API is available at [https://developer.productboard.com](https://developer.productboard.com). Whereas the one for the GDPR Public API is available in the help docs at [https://help.productboard.com/en/articles/1947849-delete-customer-data-from-productboard](https://help.productboard.com/en/articles/1947849-delete-customer-data-from-productboard).
+This library is build using the publicly available documentation. The one for the Public API is available at [https://developer.productboard.com](https://developer.productboard.com). Whereas the one for the GDPR Public API is available in the help docs at [https://help.productboard.com/en/articles/1947849-delete-customer-data-from-productboard](https://help.productboard.com/en/articles/1947849-delete-customer-data-from-productboard).
 
 ### Naming
 
@@ -33,11 +33,11 @@ The product and company name is productboard. For more information on how to spe
 ### Installation
 
 To install using Package Manager Console use:
-> Install-Package productboard  
+> Install-Package productboard
 > Install-Package productboard.Extensions.DependencyInjection
 
 To install using dotnet cli use:
-> dotnet add productboard  
+> dotnet add productboard
 > dotnet add productboard.Extensions.DependencyInjection
 
 Alternatively, you can use the NuGet package manager in Visual Studio by searching for `productboard` or `productboard.Extensions.DependencyInjection` and then click install.
@@ -99,4 +99,4 @@ Please leave all comments, bugs, requests, and issues on the Issues page. We'll 
 
 ### License
 
-The Library is licensed under the [MIT](http://www.opensource.org/licenses/mit-license.php "Read more about the MIT license form") license. Refere to the [LICENSE](./LICENSE.md) file for more information.
+The Library is licensed under the [MIT](http://www.opensource.org/licenses/mit-license.php "Read more about the MIT license form") license. Refer to the [LICENSE](./LICENSE.md) file for more information.
