@@ -34,13 +34,11 @@ The product and company name is productboard. For more information on how to spe
 
 To install using Package Manager Console use:
 > Install-Package productboard
-> Install-Package productboard.Extensions.DependencyInjection
 
 To install using dotnet cli use:
 > dotnet add productboard
-> dotnet add productboard.Extensions.DependencyInjection
 
-Alternatively, you can use the NuGet package manager in Visual Studio by searching for `productboard` or `productboard.Extensions.DependencyInjection` and then click install.
+Alternatively, you can use the NuGet package manager in Visual Studio by searching for `productboard` and then click install.
 
 ### Usage
 
