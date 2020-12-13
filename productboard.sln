@@ -14,13 +14,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "examples", "examples", "{42
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{88003219-BE52-4B7F-B65C-ED06C89C82B9}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{6DDBB402-2144-40E9-B810-6104A141D7EE}"
-	ProjectSection(SolutionItems) = preProject
-		azure-pipelines.yml = azure-pipelines.yml
-		LICENSE.md = LICENSE.md
-		README.md = README.md
-	EndProjectSection
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "productboard.Tests", "test\productboard.Tests\productboard.Tests.csproj", "{B12D949C-BA56-475D-ACB5-0E09043A52E2}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExampleSimple", "examples\ExampleSimple\ExampleSimple.csproj", "{547D7034-8EEF-4356-9467-05B3A786B04F}"
