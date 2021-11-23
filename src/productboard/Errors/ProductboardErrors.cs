@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json;
+﻿using System.Text.Json.Serialization;
 
 namespace productboard.Errors
 {
@@ -8,7 +8,7 @@ namespace productboard.Errors
     public class ProductboardErrors
     {
         /// 
-        [JsonProperty("source")]
+        [JsonPropertyName("source")]
         public object Source { get; set; } // sometimes it is an array, othertimes it is an object
     }
 }

@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json;
+﻿using System.Text.Json.Serialization;
 
 namespace productboard.Models
 {
@@ -10,13 +10,13 @@ namespace productboard.Models
         /// <summary>
         /// Links for accessing the created note
         /// </summary>
-        [JsonProperty("links")]
+        [JsonPropertyName("links")]
         public NoteLinks Links { get; set; }
 
         /// <summary>
         /// Data about the created note
         /// </summary>
-        [JsonProperty("data")]
+        [JsonPropertyName("data")]
         public NoteData Data { get; set; }
     }
 }

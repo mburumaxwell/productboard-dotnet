@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json;
+﻿using System.Text.Json.Serialization;
 
 namespace productboard
 {
@@ -16,14 +16,14 @@ namespace productboard
         /// A unique string identifying the external system from which the data came
         /// </summary>
         /// <example>deskdesk</example>
-        [JsonProperty("origin")]
+        [JsonPropertyName("origin")]
         public string Origin { get; set; }
 
         /// <summary>
         /// The unique id of the record in the origin system
         /// </summary>
         /// <example>deskdesk</example>
-        [JsonProperty("record_id")]
+        [JsonPropertyName("record_id")]
         public string RecordId { get; set; }
     }
 }

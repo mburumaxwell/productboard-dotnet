@@ -1,10 +1,10 @@
-﻿using Newtonsoft.Json;
-using productboard.Errors;
+﻿using productboard.Errors;
 using System;
-using System.IO;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
+using System.Text.Encodings.Web;
+using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -16,6 +16,8 @@ namespace productboard
     /// <typeparam name="TOptions"></typeparam>
     public abstract class ProductboardClientBase<TOptions> where TOptions : ProductboardClientOptionsBase
     {
+        private readonly JsonSerializerOptions serializerOptions = new JsonSerializerOptions(JsonSerializerDefaults.Web);
+
         /// <summary>
         /// Creates an instance if <see cref="ProductboardClientBase{TOptions}"/>
         /// </summary>
@@ -35,6 +37,12 @@ namespace productboard
             var productVersion = typeof(ProductboardClient).Assembly.GetName().Version.ToString();
             var userAgent = new ProductInfoHeaderValue("productboard-dotnet", productVersion);
             BackChannel.DefaultRequestHeaders.UserAgent.Add(userAgent);
+
+            // prepare options for serialization
+            serializerOptions = new JsonSerializerOptions(JsonSerializerDefaults.Web)
+            {
+                Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping,
+            };
         }
 
         /// <summary>
@@ -46,6 +54,11 @@ namespace productboard
         /// The options for configuring the client
         /// </summary>
         protected TOptions Options { get; }
+
+        /// <summary>
+        /// The settings used for serialization
+        /// </summary>
+        protected JsonSerializerOptions SerializerOptions => serializerOptions;
 
         /// <summary>
         /// Authenticate a request before it is sent
@@ -116,20 +129,13 @@ namespace productboard
                 // get the encoding and always default to UTF-8
                 var encoding = Encoding.GetEncoding(contentType?.CharSet ?? Encoding.UTF8.BodyName);
 
-                using (var streamReader = new StreamReader(stream, encoding))
+                if (response.IsSuccessStatusCode)
                 {
-                    using (var jsonReader = new JsonTextReader(streamReader))
-                    {
-                        var serializer = JsonSerializer.Create(Options.SerializerSettings);
-                        if (response.IsSuccessStatusCode)
-                        {
-                            resource = serializer.Deserialize<TResource>(jsonReader);
-                        }
-                        else
-                        {
-                            error = serializer.Deserialize<TError>(jsonReader);
-                        }
-                    }
+                    resource = await JsonSerializer.DeserializeAsync<TResource>(stream, SerializerOptions, cancellationToken);
+                }
+                else
+                {
+                    error = await JsonSerializer.DeserializeAsync<TError>(stream, SerializerOptions, cancellationToken);
                 }
             }
 
