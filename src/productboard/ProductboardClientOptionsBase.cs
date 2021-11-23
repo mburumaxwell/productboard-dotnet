@@ -1,5 +1,5 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using System;
+using System.Text.Json;
 
 namespace productboard
 {
@@ -16,6 +16,6 @@ namespace productboard
         /// <summary>
         /// The settings used for serialization
         /// </summary>
-        internal JsonSerializerSettings SerializerSettings { get; set; } = new JsonSerializerSettings();
+        internal JsonSerializerOptions SerializerOptions { get; set; } = new JsonSerializerOptions();
     }
 }

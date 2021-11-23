@@ -1,10 +1,9 @@
-﻿using Newtonsoft.Json;
-using productboard.Errors;
+﻿using productboard.Errors;
 using System;
-using System.IO;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
+using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -116,20 +115,13 @@ namespace productboard
                 // get the encoding and always default to UTF-8
                 var encoding = Encoding.GetEncoding(contentType?.CharSet ?? Encoding.UTF8.BodyName);
 
-                using (var streamReader = new StreamReader(stream, encoding))
+                if (response.IsSuccessStatusCode)
                 {
-                    using (var jsonReader = new JsonTextReader(streamReader))
-                    {
-                        var serializer = JsonSerializer.Create(Options.SerializerSettings);
-                        if (response.IsSuccessStatusCode)
-                        {
-                            resource = serializer.Deserialize<TResource>(jsonReader);
-                        }
-                        else
-                        {
-                            error = serializer.Deserialize<TError>(jsonReader);
-                        }
-                    }
+                    resource = await JsonSerializer.DeserializeAsync<TResource>(stream, Options.SerializerOptions, cancellationToken);
+                }
+                else
+                {
+                    error = await JsonSerializer.DeserializeAsync<TError>(stream, Options.SerializerOptions, cancellationToken);
                 }
             }
 

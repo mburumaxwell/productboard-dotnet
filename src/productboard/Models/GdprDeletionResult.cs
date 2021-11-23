@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json;
+﻿using System.Text.Json.Serialization;
 
 namespace productboard.Models
 {
@@ -10,7 +10,7 @@ namespace productboard.Models
         /// <summary>
         /// The success message
         /// </summary>
-        [JsonProperty("message")]
+        [JsonPropertyName("message")]
         public string Message { get; set; }
     }
 }

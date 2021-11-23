@@ -1,9 +1,9 @@
-﻿using Newtonsoft.Json;
-using productboard.Models;
+﻿using productboard.Models;
 using System;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
+using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -33,7 +33,7 @@ namespace productboard
             // ensure note is not null
             if (note == null) throw new ArgumentNullException(nameof(note));
 
-            var json = JsonConvert.SerializeObject(note, Options.SerializerSettings);
+            var json = JsonSerializer.Serialize(note, Options.SerializerOptions);
             var content = new StringContent(json, Encoding.UTF8, "application/json");
 
             var url = new Uri(Options.BaseUrl, "/notes");

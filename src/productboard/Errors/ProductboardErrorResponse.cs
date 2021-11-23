@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json;
+﻿using System.Text.Json.Serialization;
 
 namespace productboard.Errors
 {
@@ -10,19 +10,19 @@ namespace productboard.Errors
         /// <summary>
         /// Indicated if the request was successful
         /// </summary>
-        [JsonProperty("ok")]
+        [JsonPropertyName("ok")]
         public bool Ok { get; set; }
 
         /// <summary>
         /// The errors reported
         /// </summary>
-        [JsonProperty("errors")]
+        [JsonPropertyName("errors")]
         public ProductboardErrors Errors { get; set; }
 
         /// <summary>
         /// The error message
         /// </summary>
-        [JsonProperty("error")]
+        [JsonPropertyName("error")]
         public string Error { get; set; } // used by GDPR only
     }
 }

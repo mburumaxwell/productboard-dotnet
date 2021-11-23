@@ -1,5 +1,5 @@
-﻿using Newtonsoft.Json;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace productboard.Models
 {
@@ -9,14 +9,14 @@ namespace productboard.Models
     public class Note
     {
         /// <example>Note title</example>
-        [JsonProperty("title")]
+        [JsonPropertyName("title")]
         public string Title { get; set; }
 
         /// <summary>
         /// HTML-encoded rich text supporting only certain tags; unsupported tags will be stripped out
         /// </summary>
         /// <example>Here is some <b>exciting</b> content</example>
-        [JsonProperty("content")]
+        [JsonPropertyName("content")]
         public string Content { get; set; }
 
         /// <summary>
@@ -26,7 +26,7 @@ namespace productboard.Models
         /// domain (if it already exists).
         /// </summary>
         /// <example>customer@example.com</example>
-        [JsonProperty("customer_email")]
+        [JsonPropertyName("customer_email")]
         public string CustomerEmail { get; set; }
 
         /// <summary>
@@ -35,7 +35,7 @@ namespace productboard.Models
         /// entity can be accessed - displayed as a clickable title in the
         /// productboard UI.
         /// </summary>
-        [JsonProperty("display_url")]
+        [JsonPropertyName("display_url")]
         public string DisplayUrl { get; set; }
 
         /// <summary>
@@ -43,7 +43,7 @@ namespace productboard.Models
         /// productboard via the API or integrations, the source keeps track of the
         /// original source entity in that origin system(s)
         /// </summary>
-        [JsonProperty("source")]
+        [JsonPropertyName("source")]
         public Source Source { get; set; }
 
         /// <summary>
@@ -58,7 +58,7 @@ namespace productboard.Models
         /// <item>experimental</item>
         /// </list>
         /// </example>
-        [JsonProperty("tags")]
+        [JsonPropertyName("tags")]
         public List<string> Tags { get; set; }
     }
 }
