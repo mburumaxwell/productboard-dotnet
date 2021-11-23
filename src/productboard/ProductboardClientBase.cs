@@ -47,6 +47,11 @@ namespace productboard
         protected TOptions Options { get; }
 
         /// <summary>
+        /// The settings used for serialization
+        /// </summary>
+        protected JsonSerializerOptions SerializerOptions { get; set; } = new JsonSerializerOptions();
+
+        /// <summary>
         /// Authenticate a request before it is sent
         /// </summary>
         /// <param name="request">The request to be authenticated</param>
@@ -117,11 +122,11 @@ namespace productboard
 
                 if (response.IsSuccessStatusCode)
                 {
-                    resource = await JsonSerializer.DeserializeAsync<TResource>(stream, Options.SerializerOptions, cancellationToken);
+                    resource = await JsonSerializer.DeserializeAsync<TResource>(stream, SerializerOptions, cancellationToken);
                 }
                 else
                 {
-                    error = await JsonSerializer.DeserializeAsync<TError>(stream, Options.SerializerOptions, cancellationToken);
+                    error = await JsonSerializer.DeserializeAsync<TError>(stream, SerializerOptions, cancellationToken);
                 }
             }
 
