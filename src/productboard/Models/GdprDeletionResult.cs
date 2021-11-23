@@ -1,16 +1,15 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace productboard.Models
+namespace productboard.Models;
+
+/// <summary>
+/// The result returned after deleting customer data via GDPR API
+/// </summary>
+public class GdprDeletionResult
 {
     /// <summary>
-    /// The result returned after deleting customer data via GDPR API
+    /// The success message
     /// </summary>
-    public class GdprDeletionResult
-    {
-        /// <summary>
-        /// The success message
-        /// </summary>
-        [JsonPropertyName("message")]
-        public string Message { get; set; }
-    }
+    [JsonPropertyName("message")]
+    public string? Message { get; set; }
 }
