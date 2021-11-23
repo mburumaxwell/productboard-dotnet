@@ -3,6 +3,7 @@ using System;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
+using System.Text.Encodings.Web;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
@@ -15,6 +16,8 @@ namespace productboard
     /// <typeparam name="TOptions"></typeparam>
     public abstract class ProductboardClientBase<TOptions> where TOptions : ProductboardClientOptionsBase
     {
+        private readonly JsonSerializerOptions serializerOptions = new JsonSerializerOptions(JsonSerializerDefaults.Web);
+
         /// <summary>
         /// Creates an instance if <see cref="ProductboardClientBase{TOptions}"/>
         /// </summary>
@@ -34,6 +37,12 @@ namespace productboard
             var productVersion = typeof(ProductboardClient).Assembly.GetName().Version.ToString();
             var userAgent = new ProductInfoHeaderValue("productboard-dotnet", productVersion);
             BackChannel.DefaultRequestHeaders.UserAgent.Add(userAgent);
+
+            // prepare options for serialization
+            serializerOptions = new JsonSerializerOptions(JsonSerializerDefaults.Web)
+            {
+                Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping,
+            };
         }
 
         /// <summary>
@@ -49,7 +58,7 @@ namespace productboard
         /// <summary>
         /// The settings used for serialization
         /// </summary>
-        protected JsonSerializerOptions SerializerOptions { get; set; } = new JsonSerializerOptions();
+        protected JsonSerializerOptions SerializerOptions => serializerOptions;
 
         /// <summary>
         /// Authenticate a request before it is sent
