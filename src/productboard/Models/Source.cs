@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace productboard;
+namespace productboard.Models;
 
 /// <summary>
 /// Represents the source of the Note

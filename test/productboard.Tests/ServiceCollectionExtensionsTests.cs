@@ -4,7 +4,7 @@ using System;
 using System.Linq;
 using Xunit;
 
-namespace productboard.Extensions.DependencyInjection.Tests;
+namespace productboard.Tests;
 
 public class ServiceCollectionExtensionsTests
 {
