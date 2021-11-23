@@ -1,5 +1,4 @@
-﻿using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection.Extensions;
+﻿using Microsoft.Extensions.DependencyInjection.Extensions;
 using productboard;
 
 namespace Microsoft.Extensions.DependencyInjection;
@@ -14,19 +13,11 @@ public static partial class IServiceCollectionExtensions
     /// related services to the <see cref="IServiceCollection"/>.
     /// </summary>
     /// <param name="services">The <see cref="IServiceCollection"/> in which to register the services.</param>
-    /// <param name="configuration">A configuration object with values for a <see cref="ProductboardGdprClientOptions"/>.</param>
     /// <param name="configureOptions">A delegate that is used to configure a <see cref="ProductboardGdprClientOptions"/>.</param>
     /// <returns>An <see cref="IHttpClientBuilder" /> that can be used to configure the client.</returns>
     public static IHttpClientBuilder AddProductboardGdpr(this IServiceCollection services,
-                                                         IConfiguration? configuration = null,
                                                          Action<ProductboardGdprClientOptions>? configureOptions = null)
     {
-        // if we have a configuration, add it
-        if (configuration != null)
-        {
-            services.Configure<ProductboardGdprClientOptions>(configuration);
-        }
-
         // if we have a configuration action, add it
         if (configureOptions != null)
         {
@@ -51,31 +42,6 @@ public static partial class IServiceCollectionExtensions
         services.TryAddTransient<ProductboardGdprClient>(resolver => resolver.GetRequiredService<InjectableProductboardGdprClient>());
 
         return services.AddHttpClient<InjectableProductboardGdprClient>();
-    }
-
-    /// <summary>
-    /// Adds the <see cref="IHttpClientFactory"/> with <see cref="ProductboardGdprClient"/> and
-    /// related services to the <see cref="IServiceCollection"/>.
-    /// </summary>
-    /// <param name="services">The <see cref="IServiceCollection"/> in which to register the services.</param>
-    /// <param name="configureOptions">A delegate that is used to configure a <see cref="ProductboardGdprClientOptions"/>.</param>
-    /// <returns>An <see cref="IHttpClientBuilder" /> that can be used to configure the client.</returns>
-    public static IHttpClientBuilder AddProductboardGdpr(this IServiceCollection services,
-                                                         Action<ProductboardGdprClientOptions>? configureOptions)
-    {
-        return services.AddProductboardGdpr(null, configureOptions);
-    }
-
-    /// <summary>
-    /// Adds the <see cref="IHttpClientFactory"/> with <see cref="ProductboardGdprClient"/> and
-    /// related services to the <see cref="IServiceCollection"/>.
-    /// </summary>
-    /// <param name="services">The <see cref="IServiceCollection"/> in which to register the services.</param>
-    /// <param name="configuration">A configuration object with values for a <see cref="ProductboardGdprClientOptions"/>.</param>
-    /// <returns>An <see cref="IHttpClientBuilder" /> that can be used to configure the client.</returns>
-    public static IHttpClientBuilder AddProductboardGdpr(this IServiceCollection services, IConfiguration configuration)
-    {
-        return services.AddProductboardGdpr(configuration, null);
     }
 
     /// <summary>
