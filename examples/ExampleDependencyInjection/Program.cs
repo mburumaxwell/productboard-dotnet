@@ -1,9 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using productboard;
 using productboard.Models;
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 
 Console.WriteLine("Hello World!");
 

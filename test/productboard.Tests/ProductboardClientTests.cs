@@ -1,9 +1,6 @@
 using productboard.Models;
-using System.Collections.Generic;
 using System.Net;
-using System.Net.Http;
 using System.Text;
-using System.Threading.Tasks;
 using Xunit;
 
 namespace productboard.Tests;

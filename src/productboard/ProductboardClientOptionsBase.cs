@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace productboard;
+﻿namespace productboard;
 
 /// <summary>
 /// Abstract options for configuring an implementation of <see cref="ProductboardClientBase{TOptions}"/>

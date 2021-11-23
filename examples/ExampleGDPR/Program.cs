@@ -1,6 +1,4 @@
 ﻿using productboard;
-using System;
-using System.Threading.Tasks;
 
 Console.WriteLine("Hello World!");
 var options = new ProductboardGdprClientOptions
