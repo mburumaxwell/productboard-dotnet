@@ -16,7 +16,7 @@ namespace ExampleGDPR
             var client = new ProductboardGdprClient(options);
 
             var response = await client.DeleteAllClientDataAsync("customer@example.com");
-            var result = response.Resource;
+            var result = response.Resource!;
             Console.WriteLine(result.Message);
         }
     }

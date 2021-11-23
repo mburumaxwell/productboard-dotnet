@@ -11,6 +11,6 @@ namespace productboard.Models
         /// The success message
         /// </summary>
         [JsonPropertyName("message")]
-        public string Message { get; set; }
+        public string? Message { get; set; }
     }
 }

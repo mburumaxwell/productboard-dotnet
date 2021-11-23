@@ -11,12 +11,12 @@ namespace productboard.Models
         /// Links for accessing the created note
         /// </summary>
         [JsonPropertyName("links")]
-        public NoteLinks Links { get; set; }
+        public NoteLinks? Links { get; set; }
 
         /// <summary>
         /// Data about the created note
         /// </summary>
         [JsonPropertyName("data")]
-        public NoteData Data { get; set; }
+        public NoteData? Data { get; set; }
     }
 }

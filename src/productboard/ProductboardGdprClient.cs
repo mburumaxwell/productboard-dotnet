@@ -16,7 +16,7 @@ namespace productboard
         /// </summary>
         /// <param name="httpClient"></param>
         /// <param name="options">The options for configuring the client</param>
-        public ProductboardGdprClient(ProductboardGdprClientOptions options, HttpClient httpClient = null)
+        public ProductboardGdprClient(ProductboardGdprClientOptions options, HttpClient? httpClient = null)
             : base(options, httpClient) { }
 
         /// <summary>

@@ -36,10 +36,10 @@ namespace ExampleSimple
                 },
             };
             var response = await client.CreateNoteAsync(note);
-            var created = response.Resource;
+            var created = response.Resource!;
             Console.Write("Note created!");
-            Console.Write($" Id = {created.Data.Id}");
-            Console.WriteLine($"Url: {created.Links.Html}");
+            Console.Write($" Id = {created.Data!.Id}");
+            Console.WriteLine($"Url: {created.Links!.Html}");
         }
     }
 }

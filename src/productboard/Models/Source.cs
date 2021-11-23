@@ -17,13 +17,13 @@ namespace productboard
         /// </summary>
         /// <example>deskdesk</example>
         [JsonPropertyName("origin")]
-        public string Origin { get; set; }
+        public string? Origin { get; set; }
 
         /// <summary>
         /// The unique id of the record in the origin system
         /// </summary>
         /// <example>deskdesk</example>
         [JsonPropertyName("record_id")]
-        public string RecordId { get; set; }
+        public string? RecordId { get; set; }
     }
 }

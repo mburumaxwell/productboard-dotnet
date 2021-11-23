@@ -24,15 +24,15 @@ namespace productboard.Tests
                 Assert.Equal(HttpMethod.Post, req.Method);
 
                 Assert.NotNull(req.Headers.Authorization);
-                Assert.Equal($"Bearer {token}", req.Headers.Authorization.ToString());
+                Assert.Equal($"Bearer {token}", req.Headers.Authorization!.ToString());
 
                 Assert.NotNull(req.Headers.UserAgent);
                 var ua = Assert.Single(req.Headers.UserAgent);
                 Assert.StartsWith("productboard-dotnet/", ua.ToString());
 
-                Assert.Equal("/notes", req.RequestUri.AbsolutePath);
+                Assert.Equal("/notes", req.RequestUri!.AbsolutePath);
 
-                var body = await req.Content.ReadAsStringAsync();
+                var body = await req.Content!.ReadAsStringAsync();
                 Assert.Equal(JsonRequest, body);
                 return new HttpResponseMessage
                 {
@@ -77,15 +77,15 @@ namespace productboard.Tests
                 Assert.Equal(HttpMethod.Post, req.Method);
 
                 Assert.NotNull(req.Headers.Authorization);
-                Assert.Equal($"Bearer {token}", req.Headers.Authorization.ToString());
+                Assert.Equal($"Bearer {token}", req.Headers.Authorization!.ToString());
 
                 Assert.NotNull(req.Headers.UserAgent);
                 var ua = Assert.Single(req.Headers.UserAgent);
                 Assert.StartsWith("productboard-dotnet/", ua.ToString());
 
-                Assert.Equal("/notes", req.RequestUri.AbsolutePath);
+                Assert.Equal("/notes", req.RequestUri!.AbsolutePath);
 
-                var body = await req.Content.ReadAsStringAsync();
+                var body = await req.Content!.ReadAsStringAsync();
                 Assert.Equal(JsonRequest, body);
                 return new HttpResponseMessage
                 {
@@ -122,10 +122,10 @@ namespace productboard.Tests
             Assert.True(response.IsSuccessful);
             Assert.Null(response.Error);
             Assert.NotNull(response.Resource);
-            Assert.NotNull(response.Resource.Links);
-            Assert.Equal("https://space.productboard.com/inbox/notes/123456", response.Resource.Links.Html);
+            Assert.NotNull(response.Resource!.Links);
+            Assert.Equal("https://space.productboard.com/inbox/notes/123456", response.Resource.Links!.Html);
             Assert.NotNull(response.Resource.Data);
-            Assert.Equal("d290f1ee-6c54-4b01-90e6-d701748f0851", response.Resource.Data.Id);
+            Assert.Equal("d290f1ee-6c54-4b01-90e6-d701748f0851", response.Resource.Data!.Id);
         }
 
         [Fact]
@@ -138,15 +138,15 @@ namespace productboard.Tests
                 Assert.Equal(HttpMethod.Post, req.Method);
 
                 Assert.NotNull(req.Headers.Authorization);
-                Assert.Equal($"Bearer {token}", req.Headers.Authorization.ToString());
+                Assert.Equal($"Bearer {token}", req.Headers.Authorization!.ToString());
 
                 Assert.NotNull(req.Headers.UserAgent);
                 var ua = Assert.Single(req.Headers.UserAgent);
                 Assert.StartsWith("productboard-dotnet/", ua.ToString());
 
-                Assert.Equal("/notes", req.RequestUri.AbsolutePath);
+                Assert.Equal("/notes", req.RequestUri!.AbsolutePath);
 
-                var body = await req.Content.ReadAsStringAsync();
+                var body = await req.Content!.ReadAsStringAsync();
                 Assert.Equal(JsonRequest, body);
                 return new HttpResponseMessage
                 {
@@ -183,9 +183,9 @@ namespace productboard.Tests
             Assert.False(response.IsSuccessful);
             Assert.Null(response.Resource);
             Assert.NotNull(response.Error);
-            Assert.False(response.Error.Ok);
+            Assert.False(response.Error!.Ok);
             Assert.NotNull(response.Error.Errors);
-            Assert.NotNull(response.Error.Errors.Source);
+            Assert.NotNull(response.Error.Errors!.Source);
         }
     }
 }

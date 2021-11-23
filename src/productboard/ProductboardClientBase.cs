@@ -23,7 +23,7 @@ namespace productboard
         /// </summary>
         /// <param name="httpClient">The client for making HTTP requests</param>
         /// <param name="options">The options for configuring the client</param>
-        protected ProductboardClientBase(TOptions options, HttpClient httpClient = null)
+        protected ProductboardClientBase(TOptions options, HttpClient? httpClient = null)
         {
             Options = options ?? throw new ArgumentNullException(nameof(options));
             BackChannel = httpClient ?? new HttpClient();
@@ -34,7 +34,7 @@ namespace productboard
             }
 
             // populate the User-Agent header
-            var productVersion = typeof(ProductboardClient).Assembly.GetName().Version.ToString();
+            var productVersion = typeof(ProductboardClient).Assembly.GetName().Version!.ToString();
             var userAgent = new ProductInfoHeaderValue("productboard-dotnet", productVersion);
             BackChannel.DefaultRequestHeaders.UserAgent.Add(userAgent);
 
@@ -97,7 +97,7 @@ namespace productboard
         protected virtual async Task<ProductboardResponse<TResource, TError>> SendAsync<TResource, TError>(HttpRequestMessage request, CancellationToken cancellationToken = default)
         {
             var response = await SendAsync(request, cancellationToken);
-            (TResource resource, TError error) = await ExtractResponseAsync<TResource, TError>(response, cancellationToken);
+            (var resource, var error) = await ExtractResponseAsync<TResource, TError>(response, cancellationToken);
             return new ProductboardResponse<TResource, TError>
             {
                 IsSuccessful = response.IsSuccessStatusCode,
@@ -116,7 +116,7 @@ namespace productboard
         /// <param name="response">the response message to be used for extraction</param>
         /// <param name="cancellationToken">the token to cancel the request</param>
         /// <returns></returns>
-        protected virtual async Task<(TResource, TError)> ExtractResponseAsync<TResource, TError>(HttpResponseMessage response, CancellationToken cancellationToken = default)
+        protected virtual async Task<(TResource?, TError?)> ExtractResponseAsync<TResource, TError>(HttpResponseMessage response, CancellationToken cancellationToken = default)
         {
             var resource = default(TResource);
             var error = default(TError);

@@ -10,14 +10,14 @@ namespace productboard.Models
     {
         /// <example>Note title</example>
         [JsonPropertyName("title")]
-        public string Title { get; set; }
+        public string? Title { get; set; }
 
         /// <summary>
         /// HTML-encoded rich text supporting only certain tags; unsupported tags will be stripped out
         /// </summary>
         /// <example>Here is some <b>exciting</b> content</example>
         [JsonPropertyName("content")]
-        public string Content { get; set; }
+        public string? Content { get; set; }
 
         /// <summary>
         /// The email address of customer to attach to the note - will use an
@@ -27,7 +27,7 @@ namespace productboard.Models
         /// </summary>
         /// <example>customer@example.com</example>
         [JsonPropertyName("customer_email")]
-        public string CustomerEmail { get; set; }
+        public string? CustomerEmail { get; set; }
 
         /// <summary>
         /// For entities that originated in external systems and entered
@@ -36,7 +36,7 @@ namespace productboard.Models
         /// productboard UI.
         /// </summary>
         [JsonPropertyName("display_url")]
-        public string DisplayUrl { get; set; }
+        public string? DisplayUrl { get; set; }
 
         /// <summary>
         /// For entities that originated in external systems and entered
@@ -44,7 +44,7 @@ namespace productboard.Models
         /// original source entity in that origin system(s)
         /// </summary>
         [JsonPropertyName("source")]
-        public Source Source { get; set; }
+        public Source? Source { get; set; }
 
         /// <summary>
         /// A set of tags for categorizing the note; tag uniqueness is case-and diacritic-insensitive,
@@ -59,6 +59,6 @@ namespace productboard.Models
         /// </list>
         /// </example>
         [JsonPropertyName("tags")]
-        public List<string> Tags { get; set; }
+        public List<string>? Tags { get; set; }
     }
 }

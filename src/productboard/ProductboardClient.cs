@@ -19,7 +19,7 @@ namespace productboard
         /// </summary>
         /// <param name="httpClient"></param>
         /// <param name="options">The options for configuring the client</param>
-        public ProductboardClient(ProductboardClientOptions options, HttpClient httpClient = null)
+        public ProductboardClient(ProductboardClientOptions options, HttpClient? httpClient = null)
             : base(options, httpClient) { }
 
         /// <summary>

@@ -17,12 +17,12 @@ namespace productboard.Errors
         /// The errors reported
         /// </summary>
         [JsonPropertyName("errors")]
-        public ProductboardErrors Errors { get; set; }
+        public ProductboardErrors? Errors { get; set; }
 
         /// <summary>
         /// The error message
         /// </summary>
         [JsonPropertyName("error")]
-        public string Error { get; set; } // used by GDPR only
+        public string? Error { get; set; } // used by GDPR only
     }
 }

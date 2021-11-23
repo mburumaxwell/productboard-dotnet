@@ -13,12 +13,12 @@ namespace productboard
         /// <summary>
         /// The resource extracted from the response body
         /// </summary>
-        public TResource Resource { get; set; }
+        public TResource? Resource { get; set; }
 
         /// <summary>
         /// The error extracted from the response body
         /// </summary>
-        public TError Error { get; set; }
+        public TError? Error { get; set; }
 
         /// <summary>
         /// Status code response from the API

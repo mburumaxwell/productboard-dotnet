@@ -20,8 +20,8 @@ namespace Microsoft.Extensions.DependencyInjection
         /// <param name="configureOptions">A delegate that is used to configure a <see cref="ProductboardClientOptions"/>.</param>
         /// <returns>An <see cref="IHttpClientBuilder" /> that can be used to configure the client.</returns>
         public static IHttpClientBuilder AddProductboard(this IServiceCollection services,
-                                                               IConfiguration configuration = null,
-                                                               Action<ProductboardClientOptions> configureOptions = null)
+                                                         IConfiguration? configuration = null,
+                                                         Action<ProductboardClientOptions>? configureOptions = null)
         {
             // if we have a configuration, add it
             if (configuration != null)
@@ -63,7 +63,7 @@ namespace Microsoft.Extensions.DependencyInjection
         /// <param name="configureOptions">A delegate that is used to configure a <see cref="ProductboardClientOptions"/>.</param>
         /// <returns>An <see cref="IHttpClientBuilder" /> that can be used to configure the client.</returns>
         public static IHttpClientBuilder AddProductboard(this IServiceCollection services,
-                                                               Action<ProductboardClientOptions> configureOptions)
+                                                         Action<ProductboardClientOptions> configureOptions)
         {
             return services.AddProductboard(null, configureOptions);
         }
@@ -90,8 +90,7 @@ namespace Microsoft.Extensions.DependencyInjection
         /// This value maps to <see cref="ProductboardClientOptions.Token"/>
         /// </param>
         /// <returns>An <see cref="IHttpClientBuilder" /> that can be used to configure the client.</returns>
-        public static IHttpClientBuilder AddProductboard(this IServiceCollection services,
-                                                               string token)
+        public static IHttpClientBuilder AddProductboard(this IServiceCollection services, string token)
         {
             return services.AddProductboard(o =>
             {

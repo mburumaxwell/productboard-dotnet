@@ -16,6 +16,6 @@
         /// <item>Click <b>+</b> to generate a new token</item>
         /// </list>
         /// </remarks>
-        public string Token { get; set; }
+        public string? Token { get; set; }
     }
 }

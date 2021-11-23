@@ -24,7 +24,7 @@ namespace productboard.Tests
                 Assert.Equal(HttpMethod.Delete, req.Method);
 
                 Assert.Null(req.Headers.Authorization);
-                Assert.True(req.Headers.TryGetValues("Private-Token", out IEnumerable<string> headerValues));
+                Assert.True(req.Headers.TryGetValues("Private-Token", out var headerValues));
                 var x = Assert.Single(headerValues);
                 Assert.Equal(token, x);
 
@@ -32,7 +32,7 @@ namespace productboard.Tests
                 var ua = Assert.Single(req.Headers.UserAgent);
                 Assert.StartsWith("productboard-dotnet/", ua.ToString());
 
-                Assert.Equal("/v1/customers/delete_all_data", req.RequestUri.AbsolutePath);
+                Assert.Equal("/v1/customers/delete_all_data", req.RequestUri!.AbsolutePath);
                 Assert.Equal($"?email={TestEmailEncoded}", req.RequestUri.Query);
 
                 Assert.Null(req.Content);
@@ -59,7 +59,7 @@ namespace productboard.Tests
                 Assert.Equal(HttpMethod.Delete, req.Method);
 
                 Assert.Null(req.Headers.Authorization);
-                Assert.True(req.Headers.TryGetValues("Private-Token", out IEnumerable<string> headerValues));
+                Assert.True(req.Headers.TryGetValues("Private-Token", out var headerValues));
                 var x = Assert.Single(headerValues);
                 Assert.Equal(token, x);
 
@@ -67,7 +67,7 @@ namespace productboard.Tests
                 var ua = Assert.Single(req.Headers.UserAgent);
                 Assert.StartsWith("productboard-dotnet/", ua.ToString());
 
-                Assert.Equal("/v1/customers/delete_all_data", req.RequestUri.AbsolutePath);
+                Assert.Equal("/v1/customers/delete_all_data", req.RequestUri!.AbsolutePath);
                 Assert.Equal($"?email={TestEmailEncoded}", req.RequestUri.Query);
 
                 Assert.Null(req.Content);
@@ -86,7 +86,7 @@ namespace productboard.Tests
             Assert.True(response.IsSuccessful);
             Assert.Null(response.Error);
             Assert.NotNull(response.Resource);
-            Assert.Equal("The customer data will be deleted", response.Resource.Message);
+            Assert.Equal("The customer data will be deleted", response.Resource!.Message);
         }
 
         [Fact]
@@ -99,7 +99,7 @@ namespace productboard.Tests
                 Assert.Equal(HttpMethod.Delete, req.Method);
 
                 Assert.Null(req.Headers.Authorization);
-                Assert.True(req.Headers.TryGetValues("Private-Token", out IEnumerable<string> headerValues));
+                Assert.True(req.Headers.TryGetValues("Private-Token", out var headerValues));
                 var x = Assert.Single(headerValues);
                 Assert.Equal(token, x);
 
@@ -107,7 +107,7 @@ namespace productboard.Tests
                 var ua = Assert.Single(req.Headers.UserAgent);
                 Assert.StartsWith("productboard-dotnet/", ua.ToString());
 
-                Assert.Equal("/v1/customers/delete_all_data", req.RequestUri.AbsolutePath);
+                Assert.Equal("/v1/customers/delete_all_data", req.RequestUri!.AbsolutePath);
                 Assert.Equal($"?email={TestEmailEncoded}", req.RequestUri.Query);
 
                 Assert.Null(req.Content);
@@ -126,7 +126,7 @@ namespace productboard.Tests
             Assert.False(response.IsSuccessful);
             Assert.Null(response.Resource);
             Assert.NotNull(response.Error);
-            Assert.Equal("The customer does not exist", response.Error.Error);
+            Assert.Equal("The customer does not exist", response.Error!.Error);
         }
     }
 }

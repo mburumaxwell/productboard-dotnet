@@ -20,8 +20,8 @@ namespace Microsoft.Extensions.DependencyInjection
         /// <param name="configureOptions">A delegate that is used to configure a <see cref="ProductboardGdprClientOptions"/>.</param>
         /// <returns>An <see cref="IHttpClientBuilder" /> that can be used to configure the client.</returns>
         public static IHttpClientBuilder AddProductboardGdpr(this IServiceCollection services,
-                                                               IConfiguration configuration = null,
-                                                               Action<ProductboardGdprClientOptions> configureOptions = null)
+                                                             IConfiguration? configuration = null,
+                                                             Action<ProductboardGdprClientOptions>? configureOptions = null)
         {
             // if we have a configuration, add it
             if (configuration != null)
@@ -63,7 +63,7 @@ namespace Microsoft.Extensions.DependencyInjection
         /// <param name="configureOptions">A delegate that is used to configure a <see cref="ProductboardGdprClientOptions"/>.</param>
         /// <returns>An <see cref="IHttpClientBuilder" /> that can be used to configure the client.</returns>
         public static IHttpClientBuilder AddProductboardGdpr(this IServiceCollection services,
-                                                               Action<ProductboardGdprClientOptions> configureOptions)
+                                                             Action<ProductboardGdprClientOptions>? configureOptions)
         {
             return services.AddProductboardGdpr(null, configureOptions);
         }
@@ -90,8 +90,7 @@ namespace Microsoft.Extensions.DependencyInjection
         /// This value maps to <see cref="ProductboardGdprClientOptions.Token"/>
         /// </param>
         /// <returns>An <see cref="IHttpClientBuilder" /> that can be used to configure the client.</returns>
-        public static IHttpClientBuilder AddProductboardGdpr(this IServiceCollection services,
-                                                               string token)
+        public static IHttpClientBuilder AddProductboardGdpr(this IServiceCollection services, string token)
         {
             return services.AddProductboardGdpr(o =>
             {

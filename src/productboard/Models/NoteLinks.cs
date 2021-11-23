@@ -12,6 +12,6 @@ namespace productboard.Models
         /// </summary>
         /// <example>https://space.productboard.com/inbox/notes/123456</example>
         [JsonPropertyName("html")]
-        public string Html { get; set; }
+        public string? Html { get; set; }
     }
 }

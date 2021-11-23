@@ -9,6 +9,6 @@ namespace productboard.Errors
     {
         /// 
         [JsonPropertyName("source")]
-        public object Source { get; set; } // sometimes it is an array, othertimes it is an object
+        public object? Source { get; set; } // sometimes it is an array, othertimes it is an object
     }
 }
