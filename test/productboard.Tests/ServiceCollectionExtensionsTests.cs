@@ -13,7 +13,7 @@ public class ServiceCollectionExtensionsTests
         var services = new ServiceCollection().AddProductboard(options => { }).Services.BuildServiceProvider();
 
         // Act && Assert
-        Assert.Throws<ArgumentNullException>(() => services.GetRequiredService<ProductboardClient>());
+        Assert.Throws<OptionsValidationException>(() => services.GetRequiredService<ProductboardClient>());
     }
 
     [Fact]
