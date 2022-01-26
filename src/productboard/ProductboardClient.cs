@@ -84,26 +84,26 @@ public class ProductboardClient
     /// <param name="options"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    public async Task<ProductboardResponse<ResourceWithData<Feature>>> CreateFeatureAsync(FeatureCreateOptions options,
+    public async Task<ProductboardResponse<DataResource<Feature>>> CreateFeatureAsync(FeatureCreateOptions options,
                                                                                           CancellationToken cancellationToken = default)
     {
         // ensure note is not null
         if (options == null) throw new ArgumentNullException(nameof(options));
 
-        var payload = new ResourceWithData<FeatureCreateOptions>(options);
-        return await PostAsync<ResourceWithData<Feature>>("/features", payload, cancellationToken: cancellationToken);
+        var payload = new DataResource<FeatureCreateOptions>(options);
+        return await PostAsync<DataResource<Feature>>("/features", payload, cancellationToken: cancellationToken);
     }
 
     /// <summary>Get a feature.</summary>
     /// <param name="id">Unique identifier of the feature.</param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    public async Task<ProductboardResponse<ResourceWithData<Feature>>> GetFeatureAsync(string id, CancellationToken cancellationToken = default)
+    public async Task<ProductboardResponse<DataResource<Feature>>> GetFeatureAsync(string id, CancellationToken cancellationToken = default)
     {
         if (string.IsNullOrWhiteSpace(id)) throw new ArgumentNullException(nameof(id));
 
         var path = $"/features/{id}";
-        return await GetAsync<ResourceWithData<Feature>>(path, cancellationToken: cancellationToken);
+        return await GetAsync<DataResource<Feature>>(path, cancellationToken: cancellationToken);
     }
 
     /// <summary>Update a feature.</summary>
@@ -111,15 +111,15 @@ public class ProductboardClient
     /// <param name="options"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    public async Task<ProductboardResponse<ResourceWithData<Feature>>> UpdateFeatureAsync(string id,
+    public async Task<ProductboardResponse<DataResource<Feature>>> UpdateFeatureAsync(string id,
                                                                                           FeatureUpdateOptions options,
                                                                                           CancellationToken cancellationToken = default)
     {
         if (string.IsNullOrWhiteSpace(id)) throw new ArgumentNullException(nameof(id));
 
         var path = $"/features/{id}";
-        var payload = new ResourceWithData<FeatureUpdateOptions>(options);
-        return await PutAsync<ResourceWithData<Feature>>(path, payload, cancellationToken: cancellationToken);
+        var payload = new DataResource<FeatureUpdateOptions>(options);
+        return await PutAsync<DataResource<Feature>>(path, payload, cancellationToken: cancellationToken);
     }
 
     #endregion
@@ -141,12 +141,12 @@ public class ProductboardClient
     /// <param name="id">Unique identifier of the component.</param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    public async Task<ProductboardResponse<ResourceWithData<Component>>> GetComponentAsync(string id, CancellationToken cancellationToken = default)
+    public async Task<ProductboardResponse<DataResource<Component>>> GetComponentAsync(string id, CancellationToken cancellationToken = default)
     {
         if (string.IsNullOrWhiteSpace(id)) throw new ArgumentNullException(nameof(id));
 
         var path = $"/components/{id}";
-        return await GetAsync<ResourceWithData<Component>>(path, cancellationToken: cancellationToken);
+        return await GetAsync<DataResource<Component>>(path, cancellationToken: cancellationToken);
     }
 
     #endregion
@@ -168,12 +168,12 @@ public class ProductboardClient
     /// <param name="id">Unique identifier of the product.</param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    public async Task<ProductboardResponse<ResourceWithData<Product>>> GetProductAsync(string id, CancellationToken cancellationToken = default)
+    public async Task<ProductboardResponse<DataResource<Product>>> GetProductAsync(string id, CancellationToken cancellationToken = default)
     {
         if (string.IsNullOrWhiteSpace(id)) throw new ArgumentNullException(nameof(id));
 
         var path = $"/products/{id}";
-        return await GetAsync<ResourceWithData<Product>>(path, cancellationToken: cancellationToken);
+        return await GetAsync<DataResource<Product>>(path, cancellationToken: cancellationToken);
     }
 
     #endregion

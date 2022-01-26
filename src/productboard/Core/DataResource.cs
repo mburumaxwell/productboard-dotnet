@@ -4,13 +4,13 @@ namespace productboard.Core;
 
 /// <summary>Represents a response with <c>data</c> node.</summary>
 /// <typeparam name="T">The type contained in the <c>data</c> node.</typeparam>
-public class ResourceWithData<T> where T : class
+public class DataResource<T> where T : class
 {
     ///
-    public ResourceWithData() { } // required for deserialization
+    public DataResource() { } // required for deserialization
 
     ///
-    public ResourceWithData(T data)
+    public DataResource(T data)
     {
         Data = data ?? throw new ArgumentNullException(nameof(data));
     }
