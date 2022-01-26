@@ -13,7 +13,7 @@ public class ServiceCollectionExtensionsGdprTests
         var services = new ServiceCollection().AddProductboardGdpr(options => { }).Services.BuildServiceProvider();
 
         // Act && Assert
-        Assert.Throws<ArgumentNullException>(() => services.GetRequiredService<ProductboardGdprClient>());
+        Assert.Throws<OptionsValidationException>(() => services.GetRequiredService<ProductboardGdprClient>());
     }
 
     [Fact]

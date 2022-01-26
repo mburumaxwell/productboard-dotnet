@@ -1,4 +1,5 @@
-﻿using productboard;
+﻿using Microsoft.Extensions.Options;
+using productboard;
 
 namespace Microsoft.Extensions.DependencyInjection;
 
@@ -23,19 +24,7 @@ public static class IServiceCollectionExtensions
             services.Configure(configureOptions);
         }
 
-        services.PostConfigure<ProductboardClientOptions>(o =>
-        {
-            if (string.IsNullOrWhiteSpace(o.Token))
-            {
-                throw new ArgumentNullException(nameof(o.Token));
-            }
-
-            if (o.BaseUrl == null)
-            {
-                throw new ArgumentNullException(nameof(o.BaseUrl));
-            }
-
-        });
+        services.AddSingleton<IValidateOptions<ProductboardClientOptions>, ProductboardClientValidateOptions>();
 
         return services.AddHttpClient<ProductboardClient>();
     }
@@ -56,20 +45,7 @@ public static class IServiceCollectionExtensions
             services.Configure(configureOptions);
         }
 
-        services
-             .PostConfigure<ProductboardGdprClientOptions>(o =>
-             {
-                 if (string.IsNullOrWhiteSpace(o.Token))
-                 {
-                     throw new ArgumentNullException(nameof(o.Token));
-                 }
-
-                 if (o.BaseUrl == null)
-                 {
-                     throw new ArgumentNullException(nameof(o.BaseUrl));
-                 }
-
-             });
+        services.AddSingleton<IValidateOptions<ProductboardGdprClientOptions>, ProductboardGdprClientValidateOptions>();
 
         return services.AddHttpClient<ProductboardGdprClient>();
     }
