@@ -16,7 +16,7 @@ public class ProductboardClient : ProductboardClientBase<ProductboardClientOptio
     /// </summary>
     /// <param name="options">The options for configuring the client</param>
     public ProductboardClient(ProductboardClientOptions options)
-        : this(null, Microsoft.Extensions.Options.Options.Create(options)) { }
+        : base(options) { }
 
     /// <summary>
     /// Creates an instance if <see cref="ProductboardClient"/>
@@ -24,7 +24,7 @@ public class ProductboardClient : ProductboardClientBase<ProductboardClientOptio
     /// <param name="httpClient"></param>
     /// <param name="optionsAccessor">The options for configuring the client</param>
     public ProductboardClient(HttpClient? httpClient, IOptions<ProductboardClientOptions> optionsAccessor)
-        : base(optionsAccessor, httpClient) { }
+        : base(httpClient, optionsAccessor) { }
 
     /// <summary>
     /// Creates a note.

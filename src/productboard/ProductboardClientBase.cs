@@ -19,9 +19,16 @@ public abstract class ProductboardClientBase<TOptions> where TOptions : Productb
     /// <summary>
     /// Creates an instance if <see cref="ProductboardClientBase{TOptions}"/>
     /// </summary>
+    /// <param name="options">The options for configuring the client</param>
+    protected ProductboardClientBase(TOptions options)
+        : this(null, Microsoft.Extensions.Options.Options.Create(options)) { }
+
+    /// <summary>
+    /// Creates an instance if <see cref="ProductboardClientBase{TOptions}"/>
+    /// </summary>
     /// <param name="httpClient">The client for making HTTP requests</param>
     /// <param name="optionsAccessor">The options for configuring the client</param>
-    protected ProductboardClientBase(IOptions<TOptions> optionsAccessor, HttpClient? httpClient)
+    protected ProductboardClientBase(HttpClient? httpClient, IOptions<TOptions> optionsAccessor)
     {
         Options = optionsAccessor?.Value ?? throw new ArgumentNullException(nameof(optionsAccessor));
         this.httpClient = httpClient ?? new HttpClient();

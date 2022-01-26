@@ -13,7 +13,7 @@ public class ProductboardGdprClient : ProductboardClientBase<ProductboardGdprCli
     /// </summary>
     /// <param name="options">The options for configuring the client</param>
     public ProductboardGdprClient(ProductboardGdprClientOptions options)
-        : this(null, Microsoft.Extensions.Options.Options.Create(options)) { }
+        : base(options) { }
 
     /// <summary>
     /// Creates an instance if <see cref="ProductboardGdprClient"/>
@@ -21,7 +21,7 @@ public class ProductboardGdprClient : ProductboardClientBase<ProductboardGdprCli
     /// <param name="httpClient"></param>
     /// <param name="optionsAccessor">The options for configuring the client</param>
     public ProductboardGdprClient(HttpClient? httpClient, IOptions<ProductboardGdprClientOptions> optionsAccessor)
-        : base(optionsAccessor, httpClient) { }
+        : base(httpClient, optionsAccessor) { }
 
     /// <summary>
     /// Delete data associated with a particular customer.
