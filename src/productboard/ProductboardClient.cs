@@ -49,6 +49,8 @@ public class ProductboardClient
         this.httpClient.DefaultRequestHeaders.UserAgent.Add(userAgent);
     }
 
+    #region Public APIs
+
     /// <summary>
     /// Creates a note.
     /// </summary>
@@ -69,6 +71,35 @@ public class ProductboardClient
     }
 
 
+    #endregion
+
+    #region GDPR Specific
+
+    /// <summary>Delete data associated with a particular customer for GDPR compliance.</summary>
+    /// <param name="email">Email address of the customer</param>
+    /// <param name="token">
+    /// The token to use for the request.
+    /// If not provided, the value from <see cref="ProductboardClientOptions.GdprToken"/> is used.
+    /// </param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    public async Task<ProductboardResponse<GdprDeletionResult>> DeleteAllClientDataAsync(string email,
+                                                                                         string? token = null,
+                                                                                         CancellationToken cancellationToken = default)
+    {
+        if (string.IsNullOrWhiteSpace(email)) throw new ArgumentNullException(nameof(email));
+
+        // ensure we have a token
+        token ??= options.GdprToken ?? throw new ArgumentNullException(nameof(token));
+
+        var emailEncoded = Uri.EscapeDataString(email);
+        var path = $"/v1/customers/delete_all_data?email={emailEncoded}";
+        var request = new HttpRequestMessage(HttpMethod.Delete, path);
+        request.Headers.TryAddWithoutValidation("Private-Token", token);
+        return await SendAsync<GdprDeletionResult>(request, false, cancellationToken);
+    }
+
+    #endregion
 
     #region Helpers
 
