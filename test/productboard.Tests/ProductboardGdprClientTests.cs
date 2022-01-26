@@ -1,3 +1,4 @@
+using Microsoft.Extensions.DependencyInjection;
 using System.Net;
 using System.Text;
 using Xunit;
@@ -39,9 +40,7 @@ public class ProductboardGdprClientTests
                 Content = new StringContent(Json202Response, Encoding.UTF8, "application/json")
             };
         });
-        var httpClient = new HttpClient(handler);
-        var options = new ProductboardGdprClientOptions { Token = token };
-        var client = new ProductboardGdprClient(httpClient, options);
+        var client = GetClient(token, handler);
         var response = await client.DeleteAllClientDataAsync(TestEmail);
         Assert.NotNull(response);
     }
@@ -74,9 +73,7 @@ public class ProductboardGdprClientTests
                 Content = new StringContent(Json202Response, Encoding.UTF8, "application/json")
             };
         });
-        var httpClient = new HttpClient(handler);
-        var options = new ProductboardGdprClientOptions { Token = token };
-        var client = new ProductboardGdprClient(httpClient, options);
+        var client = GetClient(token, handler);
         var response = await client.DeleteAllClientDataAsync(TestEmail);
         Assert.NotNull(response);
         Assert.Equal(HttpStatusCode.Accepted, response.StatusCode);
@@ -114,9 +111,7 @@ public class ProductboardGdprClientTests
                 Content = new StringContent(Json410Response, Encoding.UTF8, "application/json")
             };
         });
-        var httpClient = new HttpClient(handler);
-        var options = new ProductboardGdprClientOptions { Token = token };
-        var client = new ProductboardGdprClient(httpClient, options);
+        var client = GetClient(token, handler);
         var response = await client.DeleteAllClientDataAsync(TestEmail);
         Assert.NotNull(response);
         Assert.Equal(HttpStatusCode.Gone, response.StatusCode);
@@ -124,5 +119,15 @@ public class ProductboardGdprClientTests
         Assert.Null(response.Resource);
         Assert.NotNull(response.Error);
         Assert.Equal("The customer does not exist", response.Error!.Error);
+    }
+
+    private static ProductboardGdprClient GetClient(string token, HttpMessageHandler handler)
+    {
+        var services = new ServiceCollection();
+        services.AddProductboardGdpr(options => options.Token = token)
+                .ConfigurePrimaryHttpMessageHandler(() => handler);
+
+        var provider = services.BuildServiceProvider();
+        return provider.GetRequiredService<ProductboardGdprClient>();
     }
 }
