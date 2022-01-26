@@ -259,7 +259,7 @@ public class ProductboardClient
     protected virtual async Task<ProductboardResponse<TResource>> GetAsync<TResource>(string path, CancellationToken cancellationToken = default)
     {
         var request = new HttpRequestMessage(HttpMethod.Get, path);
-        return await SendAsync<TResource>(request, authenticate: false, cancellationToken);
+        return await SendAsync<TResource>(request, cancellationToken:  cancellationToken);
     }
 
     /// <summary>Send a POST request and extract the response.</summary>
@@ -274,7 +274,7 @@ public class ProductboardClient
         {
             Content = MakeJsonHttpContent(payload),
         };
-        return await SendAsync<TResource>(request, authenticate: false, cancellationToken);
+        return await SendAsync<TResource>(request, cancellationToken: cancellationToken);
     }
 
     /// <summary>Send a PUT request and extract the response.</summary>
@@ -289,7 +289,7 @@ public class ProductboardClient
         {
             Content = MakeJsonHttpContent(payload),
         };
-        return await SendAsync<TResource>(request, authenticate: false, cancellationToken);
+        return await SendAsync<TResource>(request, cancellationToken: cancellationToken);
     }
 
     /// <summary>Send a request and extract the response.</summary>
