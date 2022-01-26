@@ -75,10 +75,14 @@ public class ProductboardClient
 
     #region Feature Statuses
 
-    public async Task<ProductboardResponse<ResourceWithPagination<FeatureStatus>>> GetFeatureStatusesAsync(BasicListOptions? pagination = null,
+    /// <summary>Get all feature statuses.</summary>
+    /// <param name="options"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    public async Task<ProductboardResponse<ResourceWithPagination<FeatureStatus>>> GetFeatureStatusesAsync(BasicListOptions? options = null,
                                                                                                            CancellationToken cancellationToken = default)
     {
-        var url = MakePathWithQuery("/feature-statuses", pagination);
+        var url = MakePathWithQuery("/feature-statuses", options);
         return await GetAsync<ResourceWithPagination<FeatureStatus>>(url, cancellationToken: cancellationToken);
     }
 
@@ -86,13 +90,21 @@ public class ProductboardClient
 
     #region Products
 
-    public async Task<ProductboardResponse<ResourceWithPagination<Product>>> GetProductsAsync(BasicListOptions? pagination = null,
+    /// <summary>Get all products.</summary>
+    /// <param name="options"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    public async Task<ProductboardResponse<ResourceWithPagination<Product>>> GetProductsAsync(BasicListOptions? options = null,
                                                                                               CancellationToken cancellationToken = default)
     {
-        var url = MakePathWithQuery("/products", pagination);
+        var url = MakePathWithQuery("/products", options);
         return await GetAsync<ResourceWithPagination<Product>>(url, cancellationToken: cancellationToken);
     }
 
+    /// <summary>Get a product.</summary>
+    /// <param name="id">Unique identifier of the product.</param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
     public async Task<ProductboardResponse<ResourceWithData<Product>>> GetProductAsync(string id, CancellationToken cancellationToken = default)
     {
         if (string.IsNullOrWhiteSpace(id)) throw new ArgumentNullException(nameof(id));
