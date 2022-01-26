@@ -56,13 +56,13 @@ public class ProductboardClient
     /// <param name="options"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    public async Task<ProductboardResponse<NoteCreationResult>> CreateNoteAsync(CreateNoteOptions options,
+    public async Task<ProductboardResponse<NoteCreationResponse>> CreateNoteAsync(CreateNoteOptions options,
                                                                                 CancellationToken cancellationToken = default)
     {
         // ensure note is not null
         if (options == null) throw new ArgumentNullException(nameof(options));
 
-        return await PostAsync<NoteCreationResult>("/notes", options, cancellationToken: cancellationToken);
+        return await PostAsync<NoteCreationResponse>("/notes", options, cancellationToken: cancellationToken);
     }
 
     #endregion

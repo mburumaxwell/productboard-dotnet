@@ -3,10 +3,8 @@ using System.Text.Json.Serialization;
 
 namespace productboard.Models;
 
-/// <summary>
-/// The result returned after creating a note
-/// </summary>
-public class NoteCreationResult : DataResource<NoteData>, IHasResourceLinks
+/// <summary>Response for creating a note.</summary>
+public class NoteCreationResponse : DataResource<NoteData>, IHasResourceLinks
 {
     /// <summary>Links for accessing the created note.</summary>
     [JsonPropertyName("links")]
