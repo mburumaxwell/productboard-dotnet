@@ -7,13 +7,11 @@ namespace productboard.Models;
 /// </summary>
 public class NoteCreationResult : IHasResourceLinks
 {
-    /// <summary>Links for accessing the created note</summary>
+    /// <summary>Links for accessing the created note.</summary>
     [JsonPropertyName("links")]
     public ResourceLinks? Links { get; set; }
 
-    /// <summary>
-    /// Data about the created note
-    /// </summary>
+    /// <summary>Data about the created note</summary>
     [JsonPropertyName("data")]
     public NoteData? Data { get; set; }
 }

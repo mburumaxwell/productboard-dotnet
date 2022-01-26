@@ -49,7 +49,7 @@ public class ProductboardClient
         this.httpClient.DefaultRequestHeaders.UserAgent.Add(userAgent);
     }
 
-    #region Public APIs
+    #region Notes
 
     /// <summary>
     /// Creates a note.
@@ -70,10 +70,21 @@ public class ProductboardClient
         return await SendAsync<NoteCreationResult>(request, cancellationToken: cancellationToken);
     }
 
+    #endregion
+
+    #region Products
+
+    public async Task<ProductboardResponse<ResourceWithData<Product>>> GetProductAsync(string id, CancellationToken cancellationToken = default)
+    {
+        if (string.IsNullOrWhiteSpace(id)) throw new ArgumentNullException(nameof(id));
+
+        var path = $"/products/{id}";
+        return await GetAsync<ResourceWithData<Product>>(path, cancellationToken: cancellationToken);
+    }
 
     #endregion
 
-    #region GDPR Specific
+    #region GDPR
 
     /// <summary>Delete data associated with a particular customer for GDPR compliance.</summary>
     /// <param name="email">Email address of the customer</param>
@@ -102,6 +113,17 @@ public class ProductboardClient
     #endregion
 
     #region Helpers
+
+    /// <summary>Send a GET request and extract the response.</summary>
+    /// <typeparam name="TResource">The type or resource to be extracted.</typeparam>
+    /// <param name="path">The path to send to.</param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    protected virtual async Task<ProductboardResponse<TResource>> GetAsync<TResource>(string path, CancellationToken cancellationToken = default)
+    {
+        var request = new HttpRequestMessage(HttpMethod.Get, path);
+        return await SendAsync<TResource>(request, authenticate: false, cancellationToken);
+    }
 
     /// <summary>Send a request and extract the response.</summary>
     /// <typeparam name="TResource">The type or resource to be extracted.</typeparam>
