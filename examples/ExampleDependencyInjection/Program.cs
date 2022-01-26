@@ -12,7 +12,7 @@ services.AddProductboard(token);
 var provider = services.BuildServiceProvider();
 
 var client = provider.GetRequiredService<ProductboardClient>();
-var note = new Note
+var note = new CreateNoteOptions
 {
     Title = "Note title",
     Content = "Here is some <b>exciting</b> content",

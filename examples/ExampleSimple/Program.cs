@@ -8,7 +8,7 @@ var options = new ProductboardClientOptions
     Token = "your-token-here"
 };
 var client = new ProductboardClient(options);
-var note = new Note
+var note = new CreateNoteOptions
 {
     Title = "Note title",
     Content = "Here is some <b>exciting</b> content",

@@ -55,20 +55,16 @@ public class ProductboardClient
     /// <summary>
     /// Creates a note.
     /// </summary>
-    /// <param name="note">The note's payload</param>
+    /// <param name="options">The note's payload</param>
     /// <param name="cancellationToken">the token to cancel the request</param>
     /// <returns></returns>
-    public async Task<ProductboardResponse<NoteCreationResult>> CreateNoteAsync(Note note, CancellationToken cancellationToken = default)
+    public async Task<ProductboardResponse<NoteCreationResult>> CreateNoteAsync(CreateNoteOptions options,
+                                                                                CancellationToken cancellationToken = default)
     {
         // ensure note is not null
-        if (note == null) throw new ArgumentNullException(nameof(note));
+        if (options == null) throw new ArgumentNullException(nameof(options));
 
-        var request = new HttpRequestMessage(HttpMethod.Post, "/notes")
-        {
-            Content = MakeJsonHttpContent(note),
-        };
-
-        return await SendAsync<NoteCreationResult>(request, cancellationToken: cancellationToken);
+        return await PostAsync<NoteCreationResult>("/notes", options, cancellationToken: cancellationToken);
     }
 
     #endregion
@@ -184,6 +180,21 @@ public class ProductboardClient
         return await SendAsync<TResource>(request, authenticate: false, cancellationToken);
     }
 
+    /// <summary>Send a Post request and extract the response.</summary>
+    /// <typeparam name="TResource">The type or resource to be extracted.</typeparam>
+    /// <param name="path">The path to send to.</param>
+    /// <param name="payload">The payload to serialize into the body using JSON.</param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    protected virtual async Task<ProductboardResponse<TResource>> PostAsync<TResource>(string path, object? payload, CancellationToken cancellationToken = default)
+    {
+        var request = new HttpRequestMessage(HttpMethod.Post, path)
+        {
+            Content = MakeJsonHttpContent(payload),
+        };
+        return await SendAsync<TResource>(request, authenticate: false, cancellationToken);
+    }
+
     /// <summary>Send a request and extract the response.</summary>
     /// <typeparam name="TResource">The type or resource to be extracted.</typeparam>
     /// <param name="request">The request to be sent.</param>
@@ -272,7 +283,7 @@ public class ProductboardClient
     /// <param name="o">the object to to write</param>
     /// <param name="encoding">the encoding to use</param>
     /// <returns></returns>
-    protected static HttpContent MakeJsonHttpContent(object o, Encoding? encoding = null)
+    protected static HttpContent MakeJsonHttpContent(object? o, Encoding? encoding = null)
     {
         encoding ??= Encoding.UTF8;
         var json = JsonSerializer.Serialize(o, serializerOptions);

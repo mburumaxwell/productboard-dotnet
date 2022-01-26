@@ -2,10 +2,8 @@
 
 namespace productboard.Models;
 
-/// <summary>
-/// A model for creating notes on productboard
-/// </summary>
-public class Note
+/// <summary>Options for creating a note.</summary>
+public class CreateNoteOptions
 {
     /// <example>Note title</example>
     [JsonPropertyName("title")]
