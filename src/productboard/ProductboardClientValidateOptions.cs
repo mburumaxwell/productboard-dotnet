@@ -7,14 +7,14 @@ internal class ProductboardClientValidateOptions : IValidateOptions<Productboard
 {
     public ValidateOptionsResult Validate(string name, ProductboardClientOptions options)
     {
+        if (options.Endpoint is null)
+        {
+            return ValidateOptionsResult.Fail($"'{nameof(options.Endpoint)}' must be provided.");
+        }
+
         if (string.IsNullOrWhiteSpace(options.Token))
         {
             return ValidateOptionsResult.Fail($"'{nameof(options.Token)}' must be provided.");
-        }
-
-        if (options.BaseUrl == null)
-        {
-            return ValidateOptionsResult.Fail($"'{nameof(options.BaseUrl)}' must be provided.");
         }
 
         return ValidateOptionsResult.Success;

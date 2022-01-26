@@ -41,7 +41,7 @@ public class ProductboardClient
         this.httpClient = httpClient ?? new HttpClient();
 
         // set the base address
-        this.httpClient.BaseAddress = options.BaseUrl ?? throw new InvalidOperationException($"'{nameof(options.BaseUrl)}' must be provided in the options.");
+        this.httpClient.BaseAddress = options.Endpoint ?? throw new InvalidOperationException($"'{nameof(options.Endpoint)}' must be provided in the options.");
 
         // populate the User-Agent header
         var productVersion = typeof(ProductboardClient).Assembly.GetName().Version!.ToString();

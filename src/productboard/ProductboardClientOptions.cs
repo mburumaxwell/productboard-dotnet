@@ -6,9 +6,10 @@
 public class ProductboardClientOptions
 {
     /// <summary>
-    /// The base URL for making requests to productboard
+    /// The endpoint to use for requests.
+    /// Defaults to <c>https://api.productboard.com/</c>.
     /// </summary>
-    public Uri BaseUrl { get; set; } = new Uri("https://api.productboard.com/");
+    public Uri Endpoint { get; set; } = new Uri("https://api.productboard.com/");
 
     /// <summary>
     /// The token for authenticating to the productboard workspace.
