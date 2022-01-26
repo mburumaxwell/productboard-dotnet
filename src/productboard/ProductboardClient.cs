@@ -118,22 +118,6 @@ public class ProductboardClient
         return new ProductboardResponse<TResource>(response: response, resource: resource, error: error);
     }
 
-    /// <summary>Send a request and extract the response.</summary>
-    /// <typeparam name="TResource">The type or resource to be extracted.</typeparam>
-    /// <typeparam name="TError">The type of error to be extracted.</typeparam>
-    /// <param name="request">The request to be sent.</param>
-    /// <param name="authenticate">Whether to include the default authentication information.</param>
-    /// <param name="cancellationToken"></param>
-    /// <returns></returns>
-    protected virtual async Task<ProductboardResponse<TResource, TError>> SendAsync<TResource, TError>(HttpRequestMessage request,
-                                                                                                       bool authenticate = true,
-                                                                                                       CancellationToken cancellationToken = default)
-    {
-        var response = await SendAsync(request, authenticate, cancellationToken);
-        (var resource, var error) = await ExtractResponseAsync<TResource, TError>(response, cancellationToken);
-        return new ProductboardResponse<TResource, TError>(response: response, resource: resource, error: error);
-    }
-
     /// <summary>
     /// Extracts the resource and error from the response message.
     /// The resource is only extracted for successful requests according
