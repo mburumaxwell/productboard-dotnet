@@ -75,6 +75,13 @@ public class ProductboardClient
 
     #region Products
 
+    public async Task<ProductboardResponse<ResourceWithPagination<Product>>> GetProductsAsync(BasicListOptions? pagination = null,
+                                                                                              CancellationToken cancellationToken = default)
+    {
+        var url = MakePathWithQuery("/products", pagination);
+        return await GetAsync<ResourceWithPagination<Product>>(url, cancellationToken: cancellationToken);
+    }
+
     public async Task<ProductboardResponse<ResourceWithData<Product>>> GetProductAsync(string id, CancellationToken cancellationToken = default)
     {
         if (string.IsNullOrWhiteSpace(id)) throw new ArgumentNullException(nameof(id));
@@ -114,6 +121,34 @@ public class ProductboardClient
     #endregion
 
     #region Helpers
+
+    /// <summary>Combine path and query.</summary>
+    /// <param name="path">The path to add before the query.</param>
+    /// <param name="options">The options to generate keys and values for the query.</param>
+    /// <returns>The path and query combined.</returns>
+    protected virtual string MakePathWithQuery(string? path, BasicListOptions? options)
+    {
+        var args = new QueryValues();
+        options?.Populate(args);
+
+        var query = args.ToString();
+        return MakePathWithQuery(path: path, query: query);
+    }
+
+    /// <summary>Combine path and query.</summary>
+    /// <param name="path">The path to add before the query.</param>
+    /// <param name="query">The query to append.</param>
+    /// <returns>The path and query combined.</returns>
+    protected virtual string MakePathWithQuery(string? path, string query)
+    {
+        if (string.IsNullOrWhiteSpace(query))
+        {
+            throw new ArgumentException($"'{nameof(query)}' cannot be null or whitespace.", nameof(query));
+        }
+
+        if (!query.StartsWith("?")) query = $"?{query}";
+        return $"{path}{query}";
+    }
 
     /// <summary>Send a GET request and extract the response.</summary>
     /// <typeparam name="TResource">The type or resource to be extracted.</typeparam>
