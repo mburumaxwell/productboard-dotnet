@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Options;
+using productboard.Core;
 using productboard.Errors;
 using productboard.Models;
 using System.Net.Http.Headers;

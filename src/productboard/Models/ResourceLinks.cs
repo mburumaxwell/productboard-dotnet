@@ -6,6 +6,7 @@ namespace productboard.Models;
 public record ResourceLinks
 {
     /// <summary>Link of the resource on the API.</summary>
+    /// <example>https://api.productboard.com/products/123456</example>
     [JsonPropertyName("self")]
     public string? Self { get; set; }
 
