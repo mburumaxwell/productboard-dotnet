@@ -84,6 +84,33 @@ public class ProductboardClient
 
     #endregion
 
+    #region Components
+
+    /// <summary>Get all components.</summary>
+    /// <param name="options"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    public async Task<ProductboardResponse<PaginationResource<Component>>> GetComponentsAsync(BasicListOptions? options = null,
+                                                                                              CancellationToken cancellationToken = default)
+    {
+        var url = MakePathWithQuery("/components", options);
+        return await GetAsync<PaginationResource<Component>>(url, cancellationToken: cancellationToken);
+    }
+
+    /// <summary>Get a component.</summary>
+    /// <param name="id">Unique identifier of the component.</param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    public async Task<ProductboardResponse<ResourceWithData<Component>>> GetComponentAsync(string id, CancellationToken cancellationToken = default)
+    {
+        if (string.IsNullOrWhiteSpace(id)) throw new ArgumentNullException(nameof(id));
+
+        var path = $"/components/{id}";
+        return await GetAsync<ResourceWithData<Component>>(path, cancellationToken: cancellationToken);
+    }
+
+    #endregion
+
     #region Products
 
     /// <summary>Get all products.</summary>
