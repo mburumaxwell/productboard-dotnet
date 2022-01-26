@@ -44,7 +44,7 @@ public class ProductboardClientTests
             };
         });
 
-        var note = new Note
+        var note = new CreateNoteOptions
         {
             Title = "Note title",
             Content = "Here is some <b>exciting</b> content",
@@ -128,7 +128,7 @@ public class ProductboardClientTests
             };
         });
 
-        var note = new Note
+        var note = new CreateNoteOptions
         {
             Title = "Note title",
             Content = "Here is some <b>exciting</b> content",
@@ -225,7 +225,7 @@ public class ProductboardClientTests
             };
         });
 
-        var note = new Note
+        var note = new CreateNoteOptions
         {
             Title = "Note title",
             Content = "Here is some <b>exciting</b> content",
