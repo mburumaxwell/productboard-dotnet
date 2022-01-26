@@ -52,11 +52,9 @@ public class ProductboardClient
 
     #region Notes
 
-    /// <summary>
-    /// Creates a note.
-    /// </summary>
-    /// <param name="options">The note's payload</param>
-    /// <param name="cancellationToken">the token to cancel the request</param>
+    /// <summary>Create a note.</summary>
+    /// <param name="options"></param>
+    /// <param name="cancellationToken"></param>
     /// <returns></returns>
     public async Task<ProductboardResponse<NoteCreationResult>> CreateNoteAsync(CreateNoteOptions options,
                                                                                 CancellationToken cancellationToken = default)
@@ -82,6 +80,20 @@ public class ProductboardClient
         return await GetAsync<PaginationResource<Feature>>(url, cancellationToken: cancellationToken);
     }
 
+    /// <summary>Create a feature.</summary>
+    /// <param name="options"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    public async Task<ProductboardResponse<ResourceWithData<Feature>>> CreateFeatureAsync(FeatureCreateOptions options,
+                                                                                          CancellationToken cancellationToken = default)
+    {
+        // ensure note is not null
+        if (options == null) throw new ArgumentNullException(nameof(options));
+
+        var payload = new ResourceWithData<FeatureCreateOptions>(options);
+        return await PostAsync<ResourceWithData<Feature>>("/features", payload, cancellationToken: cancellationToken);
+    }
+
     /// <summary>Get a feature.</summary>
     /// <param name="id">Unique identifier of the feature.</param>
     /// <param name="cancellationToken"></param>
@@ -92,6 +104,22 @@ public class ProductboardClient
 
         var path = $"/features/{id}";
         return await GetAsync<ResourceWithData<Feature>>(path, cancellationToken: cancellationToken);
+    }
+
+    /// <summary>Update a feature.</summary>
+    /// <param name="id">Unique identifier of the feature.</param>
+    /// <param name="options"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    public async Task<ProductboardResponse<ResourceWithData<Feature>>> UpdateFeatureAsync(string id,
+                                                                                          FeatureUpdateOptions options,
+                                                                                          CancellationToken cancellationToken = default)
+    {
+        if (string.IsNullOrWhiteSpace(id)) throw new ArgumentNullException(nameof(id));
+
+        var path = $"/features/{id}";
+        var payload = new ResourceWithData<FeatureUpdateOptions>(options);
+        return await PutAsync<ResourceWithData<Feature>>(path, payload, cancellationToken: cancellationToken);
     }
 
     #endregion
@@ -234,7 +262,7 @@ public class ProductboardClient
         return await SendAsync<TResource>(request, authenticate: false, cancellationToken);
     }
 
-    /// <summary>Send a Post request and extract the response.</summary>
+    /// <summary>Send a POST request and extract the response.</summary>
     /// <typeparam name="TResource">The type or resource to be extracted.</typeparam>
     /// <param name="path">The path to send to.</param>
     /// <param name="payload">The payload to serialize into the body using JSON.</param>
@@ -243,6 +271,21 @@ public class ProductboardClient
     protected virtual async Task<ProductboardResponse<TResource>> PostAsync<TResource>(string path, object? payload, CancellationToken cancellationToken = default)
     {
         var request = new HttpRequestMessage(HttpMethod.Post, path)
+        {
+            Content = MakeJsonHttpContent(payload),
+        };
+        return await SendAsync<TResource>(request, authenticate: false, cancellationToken);
+    }
+
+    /// <summary>Send a PUT request and extract the response.</summary>
+    /// <typeparam name="TResource">The type or resource to be extracted.</typeparam>
+    /// <param name="path">The path to send to.</param>
+    /// <param name="payload">The payload to serialize into the body using JSON.</param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    protected virtual async Task<ProductboardResponse<TResource>> PutAsync<TResource>(string path, object? payload, CancellationToken cancellationToken = default)
+    {
+        var request = new HttpRequestMessage(HttpMethod.Put, path)
         {
             Content = MakeJsonHttpContent(payload),
         };

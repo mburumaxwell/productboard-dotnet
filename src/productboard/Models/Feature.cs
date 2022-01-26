@@ -30,9 +30,9 @@ public record Feature : IHasResourceLinks
 
     /// <summary>Basic feature status. Please query feature statuses API for more details.</summary>
     [JsonPropertyName("status")]
-    public FeatureStatus? status { get; set; }
+    public FeatureStatus? Status { get; set; }
 
-    // TODO: handle parent (AnyOf: Product/Component)
+    // TODO: handle parent (AnyOf: Product/Component/Feature)
 
     /// <summary>Links for accessing the component.</summary>
     [JsonPropertyName("links")]
