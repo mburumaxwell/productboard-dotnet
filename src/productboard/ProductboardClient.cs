@@ -69,6 +69,33 @@ public class ProductboardClient
 
     #endregion
 
+    #region Features
+
+    /// <summary>Get all features.</summary>
+    /// <param name="options"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    public async Task<ProductboardResponse<PaginationResource<Feature>>> GetFeatureAsync(FeaturesListOptions? options = null,
+                                                                                         CancellationToken cancellationToken = default)
+    {
+        var url = MakePathWithQuery("/features", options);
+        return await GetAsync<PaginationResource<Feature>>(url, cancellationToken: cancellationToken);
+    }
+
+    /// <summary>Get a feature.</summary>
+    /// <param name="id">Unique identifier of the feature.</param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    public async Task<ProductboardResponse<ResourceWithData<Feature>>> GetFeatureAsync(string id, CancellationToken cancellationToken = default)
+    {
+        if (string.IsNullOrWhiteSpace(id)) throw new ArgumentNullException(nameof(id));
+
+        var path = $"/features/{id}";
+        return await GetAsync<ResourceWithData<Feature>>(path, cancellationToken: cancellationToken);
+    }
+
+    #endregion
+
     #region Components
 
     /// <summary>Get all components.</summary>

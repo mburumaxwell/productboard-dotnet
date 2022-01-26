@@ -5,7 +5,7 @@ namespace productboard.Models;
 /// <summary>Represents a component on productboard.</summary>
 public record Component : IHasResourceLinks
 {
-    /// <summary>Entity id</summary>
+    /// <summary>Entity identifier</summary>
     [JsonPropertyName("id")]
     public string? Id { get; set; }
 
