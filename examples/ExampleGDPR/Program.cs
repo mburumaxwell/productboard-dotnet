@@ -1,11 +1,11 @@
 ﻿using productboard;
 
 Console.WriteLine("Hello World!");
-var options = new ProductboardGdprClientOptions
+var options = new ProductboardClientOptions
 {
     Token = "your-token-here"
 };
-var client = new ProductboardGdprClient(options);
+var client = new ProductboardClient(options);
 
 var response = await client.DeleteAllClientDataAsync("customer@example.com");
 var result = response.Resource!;

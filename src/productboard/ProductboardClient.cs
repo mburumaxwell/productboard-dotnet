@@ -96,7 +96,7 @@ public class ProductboardClient
         var path = $"/v1/customers/delete_all_data?email={emailEncoded}";
         var request = new HttpRequestMessage(HttpMethod.Delete, path);
         request.Headers.TryAddWithoutValidation("Private-Token", token);
-        return await SendAsync<GdprDeletionResult>(request, false, cancellationToken);
+        return await SendAsync<GdprDeletionResult>(request, authenticate: false, cancellationToken);
     }
 
     #endregion
