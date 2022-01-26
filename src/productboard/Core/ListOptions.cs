@@ -1,11 +1,9 @@
-﻿using productboard.Models;
-
-namespace productboard.Core;
+﻿namespace productboard.Core;
 
 /// <summary>
 /// Standard options for pagination in list/get operations.
 /// </summary>
-public record BasicListOptions
+public record ListOptions
 {
     private static readonly System.Text.RegularExpressions.Regex pageLimitRegex = new("pageLimit=([0-9]{1,})");
     private static readonly System.Text.RegularExpressions.Regex pageOffsetRegex = new("pageOffset=([0-9]{1,})");

@@ -3,7 +3,7 @@
 namespace productboard.Models;
 
 /// <summary>Options for listing features.</summary>
-public record FeaturesListOptions : BasicListOptions
+public record FeaturesListOptions : ListOptions
 {
     /// <summary>
     /// If specified, the resource returns only features in status with given ID.

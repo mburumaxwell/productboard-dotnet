@@ -131,7 +131,7 @@ public class ProductboardClient
     /// <param name="options"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    public async Task<ProductboardResponse<PaginatedResponse<Component>>> GetComponentsAsync(BasicListOptions? options = null,
+    public async Task<ProductboardResponse<PaginatedResponse<Component>>> GetComponentsAsync(ListOptions? options = null,
                                                                                              CancellationToken cancellationToken = default)
     {
         var url = MakePathWithQuery("/components", options);
@@ -159,7 +159,7 @@ public class ProductboardClient
     /// <param name="options"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    public async Task<ProductboardResponse<PaginatedResponse<Product>>> GetProductsAsync(BasicListOptions? options = null,
+    public async Task<ProductboardResponse<PaginatedResponse<Product>>> GetProductsAsync(ListOptions? options = null,
                                                                                          CancellationToken cancellationToken = default)
     {
         var url = MakePathWithQuery("/products", options);
@@ -187,7 +187,7 @@ public class ProductboardClient
     /// <param name="options"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    public async Task<ProductboardResponse<PaginatedResponse<FeatureStatus>>> GetFeatureStatusesAsync(BasicListOptions? options = null,
+    public async Task<ProductboardResponse<PaginatedResponse<FeatureStatus>>> GetFeatureStatusesAsync(ListOptions? options = null,
                                                                                                       CancellationToken cancellationToken = default)
     {
         var url = MakePathWithQuery("/feature-statuses", options);
@@ -230,7 +230,7 @@ public class ProductboardClient
     /// <param name="path">The path to add before the query.</param>
     /// <param name="options">The options to generate keys and values for the query.</param>
     /// <returns>The path and query combined.</returns>
-    protected virtual string MakePathWithQuery(string? path, BasicListOptions? options)
+    protected virtual string MakePathWithQuery(string? path, ListOptions? options)
     {
         var args = new QueryValues();
         options?.Populate(args);
