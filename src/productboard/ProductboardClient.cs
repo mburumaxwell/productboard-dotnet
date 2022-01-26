@@ -79,11 +79,11 @@ public class ProductboardClient
     /// <param name="options"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    public async Task<ProductboardResponse<ResourceWithPagination<FeatureStatus>>> GetFeatureStatusesAsync(BasicListOptions? options = null,
-                                                                                                           CancellationToken cancellationToken = default)
+    public async Task<ProductboardResponse<PaginationResource<FeatureStatus>>> GetFeatureStatusesAsync(BasicListOptions? options = null,
+                                                                                                       CancellationToken cancellationToken = default)
     {
         var url = MakePathWithQuery("/feature-statuses", options);
-        return await GetAsync<ResourceWithPagination<FeatureStatus>>(url, cancellationToken: cancellationToken);
+        return await GetAsync<PaginationResource<FeatureStatus>>(url, cancellationToken: cancellationToken);
     }
 
     #endregion
@@ -94,11 +94,11 @@ public class ProductboardClient
     /// <param name="options"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    public async Task<ProductboardResponse<ResourceWithPagination<Product>>> GetProductsAsync(BasicListOptions? options = null,
-                                                                                              CancellationToken cancellationToken = default)
+    public async Task<ProductboardResponse<PaginationResource<Product>>> GetProductsAsync(BasicListOptions? options = null,
+                                                                                          CancellationToken cancellationToken = default)
     {
         var url = MakePathWithQuery("/products", options);
-        return await GetAsync<ResourceWithPagination<Product>>(url, cancellationToken: cancellationToken);
+        return await GetAsync<PaginationResource<Product>>(url, cancellationToken: cancellationToken);
     }
 
     /// <summary>Get a product.</summary>
