@@ -37,8 +37,8 @@ public class ProductboardGdprClient : ProductboardClientBase<ProductboardGdprCli
         }
 
         var emailEncoded = Uri.EscapeDataString(email);
-        var url = new Uri(Options.BaseUrl, $"/v1/customers/delete_all_data?email={emailEncoded}");
-        var request = new HttpRequestMessage(HttpMethod.Delete, url);
+        var path = $"/v1/customers/delete_all_data?email={emailEncoded}";
+        var request = new HttpRequestMessage(HttpMethod.Delete, path);
         return await SendAsync<GdprDeletionResult>(request, cancellationToken);
     }
 

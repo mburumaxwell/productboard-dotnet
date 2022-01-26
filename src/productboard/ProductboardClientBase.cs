@@ -39,10 +39,8 @@ public abstract class ProductboardClientBase<TOptions> where TOptions : Productb
         Options = optionsAccessor?.Value ?? throw new ArgumentNullException(nameof(optionsAccessor));
         this.httpClient = httpClient ?? new HttpClient();
 
-        if (Options.BaseUrl == null)
-        {
-            throw new ArgumentNullException(nameof(Options.BaseUrl));
-        }
+        // set the base address
+        this.httpClient.BaseAddress = Options.BaseUrl ?? throw new ArgumentNullException(nameof(Options.BaseUrl));
 
         // populate the User-Agent header
         var productVersion = typeof(ProductboardClient).Assembly.GetName().Version!.ToString();

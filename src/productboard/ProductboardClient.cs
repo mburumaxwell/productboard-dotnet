@@ -40,10 +40,9 @@ public class ProductboardClient : ProductboardClientBase<ProductboardClientOptio
         var json = JsonSerializer.Serialize(note, SerializerOptions);
         var content = new StringContent(json, Encoding.UTF8, "application/json");
 
-        var url = new Uri(Options.BaseUrl, "/notes");
-        var request = new HttpRequestMessage(HttpMethod.Post, url)
+        var request = new HttpRequestMessage(HttpMethod.Post, "/notes")
         {
-            Content = content
+            Content = content,
         };
 
         return await SendAsync<NoteCreationResult>(request, cancellationToken);
