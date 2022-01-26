@@ -81,13 +81,7 @@ public class ProductboardClient
     {
         var response = await SendAsync(request, cancellationToken);
         (var resource, var error) = await ExtractResponseAsync<TResource, ProductboardErrorResponse>(response, cancellationToken);
-        return new ProductboardResponse<TResource>
-        {
-            IsSuccessful = response.IsSuccessStatusCode,
-            StatusCode = response.StatusCode,
-            Resource = resource,
-            Error = error,
-        };
+        return new ProductboardResponse<TResource>(response: response, resource: resource, error: error);
     }
 
     /// <summary>Send a request and extract the response.</summary>
@@ -100,13 +94,7 @@ public class ProductboardClient
     {
         var response = await SendAsync(request, cancellationToken);
         (var resource, var error) = await ExtractResponseAsync<TResource, TError>(response, cancellationToken);
-        return new ProductboardResponse<TResource, TError>
-        {
-            IsSuccessful = response.IsSuccessStatusCode,
-            StatusCode = response.StatusCode,
-            Resource = resource,
-            Error = error,
-        };
+        return new ProductboardResponse<TResource, TError>(response: response, resource: resource, error: error);
     }
 
     /// <summary>
