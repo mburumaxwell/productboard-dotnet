@@ -49,9 +49,9 @@ public class ProductboardClient : ProductboardClientBase<ProductboardClientOptio
     }
 
     /// <inheritdoc/>
-    protected override void Authenticate(HttpRequestMessage request)
+    protected override void Authenticate(HttpRequestMessage request, ProductboardClientOptions options)
     {
-        request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", Options.Token);
+        request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", options.Token);
         request.Headers.TryAddWithoutValidation("X-Version", "1");
     }
 }

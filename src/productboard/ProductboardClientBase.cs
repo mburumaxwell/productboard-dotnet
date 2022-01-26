@@ -21,13 +21,14 @@ public abstract class ProductboardClientBase<TOptions> where TOptions : Productb
     };
 
     private readonly HttpClient httpClient;
+    private readonly TOptions options;
 
     /// <summary>
     /// Creates an instance if <see cref="ProductboardClientBase{TOptions}"/>
     /// </summary>
     /// <param name="options">The options for configuring the client</param>
     protected ProductboardClientBase(TOptions options)
-        : this(null, Microsoft.Extensions.Options.Options.Create(options)) { }
+        : this(null, Options.Create(options)) { }
 
     /// <summary>
     /// Creates an instance if <see cref="ProductboardClientBase{TOptions}"/>
@@ -36,22 +37,17 @@ public abstract class ProductboardClientBase<TOptions> where TOptions : Productb
     /// <param name="optionsAccessor">The options for configuring the client</param>
     protected ProductboardClientBase(HttpClient? httpClient, IOptions<TOptions> optionsAccessor)
     {
-        Options = optionsAccessor?.Value ?? throw new ArgumentNullException(nameof(optionsAccessor));
+        options = optionsAccessor?.Value ?? throw new ArgumentNullException(nameof(optionsAccessor));
         this.httpClient = httpClient ?? new HttpClient();
 
         // set the base address
-        this.httpClient.BaseAddress = Options.BaseUrl ?? throw new ArgumentNullException(nameof(Options.BaseUrl));
+        this.httpClient.BaseAddress = options.BaseUrl ?? throw new ArgumentNullException(nameof(options.BaseUrl));
 
         // populate the User-Agent header
         var productVersion = typeof(ProductboardClient).Assembly.GetName().Version!.ToString();
         var userAgent = new ProductInfoHeaderValue("productboard-dotnet", productVersion);
         this.httpClient.DefaultRequestHeaders.UserAgent.Add(userAgent);
     }
-
-    /// <summary>
-    /// The options for configuring the client
-    /// </summary>
-    protected TOptions Options { get; }
 
     /// <summary>
     /// The settings used for serialization
@@ -62,7 +58,8 @@ public abstract class ProductboardClientBase<TOptions> where TOptions : Productb
     /// Authenticate a request before it is sent
     /// </summary>
     /// <param name="request">The request to be authenticated</param>
-    protected abstract void Authenticate(HttpRequestMessage request);
+    /// <param name="options">The client options</param>
+    protected abstract void Authenticate(HttpRequestMessage request, TOptions options);
 
     /// <summary>
     /// Send a request and extract the response
@@ -154,7 +151,7 @@ public abstract class ProductboardClientBase<TOptions> where TOptions : Productb
         if (request == null) throw new ArgumentNullException(nameof(request));
 
         // setup authentication
-        Authenticate(request);
+        Authenticate(request, options);
 
         // execute the request
         return await httpClient.SendAsync(request, cancellationToken);

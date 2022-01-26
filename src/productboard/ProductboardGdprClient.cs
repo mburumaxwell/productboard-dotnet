@@ -43,8 +43,8 @@ public class ProductboardGdprClient : ProductboardClientBase<ProductboardGdprCli
     }
 
     /// <inheritdoc/>
-    protected override void Authenticate(HttpRequestMessage request)
+    protected override void Authenticate(HttpRequestMessage request, ProductboardGdprClientOptions options)
     {
-        request.Headers.TryAddWithoutValidation("Private-Token", Options.Token);
+        request.Headers.TryAddWithoutValidation("Private-Token", options.Token);
     }
 }
