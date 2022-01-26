@@ -18,10 +18,6 @@ internal class QueryValues : IEnumerable<KeyValuePair<string, string>>
             : new Dictionary<string, string>(values, StringComparer.OrdinalIgnoreCase);
     }
 
-    /// <summary>Gets or sets the value associated with the specified key.</summary>
-    /// <param name="key">The key of the value to get or set.</param>
-    public string this[string key] => values[key];
-
     ///
     public QueryValues Add(string key, string? value)
     {
@@ -30,13 +26,6 @@ internal class QueryValues : IEnumerable<KeyValuePair<string, string>>
             values.Add(key, value);
         }
 
-        return this;
-    }
-
-    ///
-    public QueryValues Remove(string key)
-    {
-        values.Remove(key);
         return this;
     }
 
@@ -55,27 +44,6 @@ internal class QueryValues : IEnumerable<KeyValuePair<string, string>>
             string s when !string.IsNullOrWhiteSpace(s) => Add(key, s),
             _ => throw new InvalidOperationException($"'{value.GetType().FullName}' objects are not supported"),
         };
-    }
-
-    ///
-    public QueryValues Add(string key, IEnumerable<string>? value) => Add(key, value is null ? null : string.Join(",", value));
-
-    ///
-    public QueryValues Add(string property, QueryValues? other)
-    {
-        if (other is null) return this;
-
-        if (string.IsNullOrWhiteSpace(property))
-        {
-            throw new ArgumentException($"'{nameof(property)}' cannot be null or whitespace.", nameof(property));
-        }
-
-        foreach (var kvp in other.values)
-        {
-            Add($"{property}.{kvp.Key}", kvp.Value);
-        }
-
-        return this;
     }
 
     ///
