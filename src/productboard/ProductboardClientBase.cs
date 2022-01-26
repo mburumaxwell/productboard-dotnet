@@ -1,4 +1,5 @@
-﻿using productboard.Errors;
+﻿using Microsoft.Extensions.Options;
+using productboard.Errors;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Text.Encodings.Web;
@@ -12,55 +13,48 @@ namespace productboard;
 /// <typeparam name="TOptions"></typeparam>
 public abstract class ProductboardClientBase<TOptions> where TOptions : ProductboardClientOptionsBase
 {
-    private readonly JsonSerializerOptions serializerOptions = new JsonSerializerOptions(JsonSerializerDefaults.Web);
+    // no need to create this options every time a client is created
+    private static readonly JsonSerializerOptions serializerOptions = new(JsonSerializerDefaults.Web)
+    {
+        // Some content contains HTML which need special handling in JSON
+        Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping,
+    };
+
+    private readonly HttpClient httpClient;
+    private readonly TOptions options;
+
+    /// <summary>
+    /// Creates an instance if <see cref="ProductboardClientBase{TOptions}"/>
+    /// </summary>
+    /// <param name="options">The options for configuring the client</param>
+    protected ProductboardClientBase(TOptions options)
+        : this(null, Options.Create(options)) { }
 
     /// <summary>
     /// Creates an instance if <see cref="ProductboardClientBase{TOptions}"/>
     /// </summary>
     /// <param name="httpClient">The client for making HTTP requests</param>
-    /// <param name="options">The options for configuring the client</param>
-    protected ProductboardClientBase(TOptions options, HttpClient? httpClient = null)
+    /// <param name="optionsAccessor">The options for configuring the client</param>
+    protected ProductboardClientBase(HttpClient? httpClient, IOptions<TOptions> optionsAccessor)
     {
-        Options = options ?? throw new ArgumentNullException(nameof(options));
-        BackChannel = httpClient ?? new HttpClient();
+        options = optionsAccessor?.Value ?? throw new ArgumentNullException(nameof(optionsAccessor));
+        this.httpClient = httpClient ?? new HttpClient();
 
-        if (options.BaseUrl == null)
-        {
-            throw new ArgumentNullException(nameof(options.BaseUrl));
-        }
+        // set the base address
+        this.httpClient.BaseAddress = options.BaseUrl ?? throw new ArgumentNullException(nameof(options.BaseUrl));
 
         // populate the User-Agent header
         var productVersion = typeof(ProductboardClient).Assembly.GetName().Version!.ToString();
         var userAgent = new ProductInfoHeaderValue("productboard-dotnet", productVersion);
-        BackChannel.DefaultRequestHeaders.UserAgent.Add(userAgent);
-
-        // prepare options for serialization
-        serializerOptions = new JsonSerializerOptions(JsonSerializerDefaults.Web)
-        {
-            Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping,
-        };
+        this.httpClient.DefaultRequestHeaders.UserAgent.Add(userAgent);
     }
-
-    /// <summary>
-    /// The client for making HTTP requests
-    /// </summary>
-    protected HttpClient BackChannel { get; }
-
-    /// <summary>
-    /// The options for configuring the client
-    /// </summary>
-    protected TOptions Options { get; }
-
-    /// <summary>
-    /// The settings used for serialization
-    /// </summary>
-    protected JsonSerializerOptions SerializerOptions => serializerOptions;
 
     /// <summary>
     /// Authenticate a request before it is sent
     /// </summary>
     /// <param name="request">The request to be authenticated</param>
-    protected abstract void Authenticate(HttpRequestMessage request);
+    /// <param name="options">The client options</param>
+    protected abstract void Authenticate(HttpRequestMessage request, TOptions options);
 
     /// <summary>
     /// Send a request and extract the response
@@ -114,25 +108,29 @@ public abstract class ProductboardClientBase<TOptions> where TOptions : Productb
     /// <returns></returns>
     protected virtual async Task<(TResource?, TError?)> ExtractResponseAsync<TResource, TError>(HttpResponseMessage response, CancellationToken cancellationToken = default)
     {
+        // extract the response
+#if NET5_0_OR_GREATER
+        using var stream = await response.Content.ReadAsStreamAsync(cancellationToken);
+#else
+        using var stream = await response.Content.ReadAsStreamAsync();
+#endif
+
         var resource = default(TResource);
         var error = default(TError);
 
-        using (var stream = await response.Content.ReadAsStreamAsync())
+        // get the content type
+        var contentType = response.Content.Headers?.ContentType;
+
+        // get the encoding and always default to UTF-8
+        var encoding = Encoding.GetEncoding(contentType?.CharSet ?? Encoding.UTF8.BodyName);
+
+        if (response.IsSuccessStatusCode)
         {
-            // get the content type
-            var contentType = response.Content.Headers?.ContentType;
-
-            // get the encoding and always default to UTF-8
-            var encoding = Encoding.GetEncoding(contentType?.CharSet ?? Encoding.UTF8.BodyName);
-
-            if (response.IsSuccessStatusCode)
-            {
-                resource = await JsonSerializer.DeserializeAsync<TResource>(stream, SerializerOptions, cancellationToken);
-            }
-            else
-            {
-                error = await JsonSerializer.DeserializeAsync<TError>(stream, SerializerOptions, cancellationToken);
-            }
+            resource = await JsonSerializer.DeserializeAsync<TResource>(stream, serializerOptions, cancellationToken);
+        }
+        else
+        {
+            error = await JsonSerializer.DeserializeAsync<TError>(stream, serializerOptions, cancellationToken);
         }
 
         return (resource, error);
@@ -152,9 +150,22 @@ public abstract class ProductboardClientBase<TOptions> where TOptions : Productb
         if (request == null) throw new ArgumentNullException(nameof(request));
 
         // setup authentication
-        Authenticate(request);
+        Authenticate(request, options);
 
         // execute the request
-        return await BackChannel.SendAsync(request, cancellationToken);
+        return await httpClient.SendAsync(request, cancellationToken);
+    }
+
+    /// <summary>
+    /// Make an instance of <see cref="StreamContent"/> with JSON content from the provided object
+    /// </summary>
+    /// <param name="o">the object to to write</param>
+    /// <param name="encoding">the encoding to use</param>
+    /// <returns></returns>
+    protected HttpContent MakeJsonHttpContent(object o, Encoding? encoding = null)
+    {
+        encoding ??= Encoding.UTF8;
+        var json = JsonSerializer.Serialize(o, serializerOptions);
+        return new StringContent(json, encoding, "application/json");
     }
 }

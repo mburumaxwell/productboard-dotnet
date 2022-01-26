@@ -1,5 +1,4 @@
-﻿using Microsoft.Extensions.DependencyInjection.Extensions;
-using productboard;
+﻿using productboard;
 
 namespace Microsoft.Extensions.DependencyInjection;
 
@@ -39,9 +38,7 @@ public static partial class IServiceCollectionExtensions
 
              });
 
-        services.TryAddTransient<ProductboardGdprClient>(resolver => resolver.GetRequiredService<InjectableProductboardGdprClient>());
-
-        return services.AddHttpClient<InjectableProductboardGdprClient>();
+        return services.AddHttpClient<ProductboardGdprClient>();
     }
 
     /// <summary>

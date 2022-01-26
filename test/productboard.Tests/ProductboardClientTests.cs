@@ -1,3 +1,4 @@
+using Microsoft.Extensions.DependencyInjection;
 using productboard.Models;
 using System.Net;
 using System.Text;
@@ -29,7 +30,7 @@ public class ProductboardClientTests
 
             Assert.Equal("/notes", req.RequestUri!.AbsolutePath);
 
-            var body = await req.Content!.ReadAsStringAsync();
+            var body = await req.Content!.ReadAsStringAsync(ct);
             Assert.Equal(JsonRequest, body);
             return new HttpResponseMessage
             {
@@ -37,7 +38,6 @@ public class ProductboardClientTests
                 Content = new StringContent(Json201Response, Encoding.UTF8, "application/json")
             };
         });
-        var httpClient = new HttpClient(handler);
 
         var note = new Note
         {
@@ -51,15 +51,14 @@ public class ProductboardClientTests
                 RecordId = "123",
             },
             Tags = new List<string>
-                {
-                    "3.0",
-                    "important",
-                    "experimental",
-                },
+            {
+                "3.0",
+                "important",
+                "experimental",
+            },
         };
 
-        var options = new ProductboardClientOptions { Token = token };
-        var client = new ProductboardClient(options, httpClient);
+        var client = GetClient(token, handler);
         var response = await client.CreateNoteAsync(note);
         Assert.NotNull(response);
     }
@@ -82,7 +81,7 @@ public class ProductboardClientTests
 
             Assert.Equal("/notes", req.RequestUri!.AbsolutePath);
 
-            var body = await req.Content!.ReadAsStringAsync();
+            var body = await req.Content!.ReadAsStringAsync(ct);
             Assert.Equal(JsonRequest, body);
             return new HttpResponseMessage
             {
@@ -90,7 +89,6 @@ public class ProductboardClientTests
                 Content = new StringContent(Json201Response, Encoding.UTF8, "application/json")
             };
         });
-        var httpClient = new HttpClient(handler);
 
         var note = new Note
         {
@@ -104,15 +102,14 @@ public class ProductboardClientTests
                 RecordId = "123",
             },
             Tags = new List<string>
-                {
-                    "3.0",
-                    "important",
-                    "experimental",
-                },
+            {
+                "3.0",
+                "important",
+                "experimental",
+            },
         };
 
-        var options = new ProductboardClientOptions { Token = token };
-        var client = new ProductboardClient(options, httpClient);
+        var client = GetClient(token, handler);
         var response = await client.CreateNoteAsync(note);
         Assert.NotNull(response);
         Assert.Equal(HttpStatusCode.Created, response.StatusCode);
@@ -143,7 +140,7 @@ public class ProductboardClientTests
 
             Assert.Equal("/notes", req.RequestUri!.AbsolutePath);
 
-            var body = await req.Content!.ReadAsStringAsync();
+            var body = await req.Content!.ReadAsStringAsync(ct);
             Assert.Equal(JsonRequest, body);
             return new HttpResponseMessage
             {
@@ -151,7 +148,6 @@ public class ProductboardClientTests
                 Content = new StringContent(Json422Response, Encoding.UTF8, "application/json")
             };
         });
-        var httpClient = new HttpClient(handler);
 
         var note = new Note
         {
@@ -165,15 +161,14 @@ public class ProductboardClientTests
                 RecordId = "123",
             },
             Tags = new List<string>
-                {
-                    "3.0",
-                    "important",
-                    "experimental",
-                },
+            {
+                "3.0",
+                "important",
+                "experimental",
+            },
         };
 
-        var options = new ProductboardClientOptions { Token = token };
-        var client = new ProductboardClient(options, httpClient);
+        var client = GetClient(token, handler);
         var response = await client.CreateNoteAsync(note);
         Assert.NotNull(response);
         Assert.Equal(HttpStatusCode.UnprocessableEntity, response.StatusCode);
@@ -183,5 +178,15 @@ public class ProductboardClientTests
         Assert.False(response.Error!.Ok);
         Assert.NotNull(response.Error.Errors);
         Assert.NotNull(response.Error.Errors!.Source);
+    }
+
+    private static ProductboardClient GetClient(string token, HttpMessageHandler handler)
+    {
+        var services = new ServiceCollection();
+        services.AddProductboard(options => options.Token = token)
+                .ConfigurePrimaryHttpMessageHandler(() => handler);
+
+        var provider = services.BuildServiceProvider();
+        return provider.GetRequiredService<ProductboardClient>();
     }
 }

@@ -1,7 +1,6 @@
-﻿using productboard.Models;
+﻿using Microsoft.Extensions.Options;
+using productboard.Models;
 using System.Net.Http.Headers;
-using System.Text;
-using System.Text.Json;
 
 namespace productboard;
 
@@ -13,10 +12,17 @@ public class ProductboardClient : ProductboardClientBase<ProductboardClientOptio
     /// <summary>
     /// Creates an instance if <see cref="ProductboardClient"/>
     /// </summary>
-    /// <param name="httpClient"></param>
     /// <param name="options">The options for configuring the client</param>
-    public ProductboardClient(ProductboardClientOptions options, HttpClient? httpClient = null)
-        : base(options, httpClient) { }
+    public ProductboardClient(ProductboardClientOptions options)
+        : base(options) { }
+
+    /// <summary>
+    /// Creates an instance if <see cref="ProductboardClient"/>
+    /// </summary>
+    /// <param name="httpClient"></param>
+    /// <param name="optionsAccessor">The options for configuring the client</param>
+    public ProductboardClient(HttpClient? httpClient, IOptions<ProductboardClientOptions> optionsAccessor)
+        : base(httpClient, optionsAccessor) { }
 
     /// <summary>
     /// Creates a note.
@@ -29,21 +35,18 @@ public class ProductboardClient : ProductboardClientBase<ProductboardClientOptio
         // ensure note is not null
         if (note == null) throw new ArgumentNullException(nameof(note));
 
-        var json = JsonSerializer.Serialize(note, SerializerOptions);
-        var content = new StringContent(json, Encoding.UTF8, "application/json");
-
-        var url = new Uri(Options.BaseUrl, "/notes");
-        var request = new HttpRequestMessage(HttpMethod.Post, url)
+        var request = new HttpRequestMessage(HttpMethod.Post, "/notes")
         {
-            Content = content
+            Content = MakeJsonHttpContent(note),
         };
 
         return await SendAsync<NoteCreationResult>(request, cancellationToken);
     }
 
     /// <inheritdoc/>
-    protected override void Authenticate(HttpRequestMessage request)
+    protected override void Authenticate(HttpRequestMessage request, ProductboardClientOptions options)
     {
-        request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", Options.Token);
+        request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", options.Token);
+        request.Headers.TryAddWithoutValidation("X-Version", "1");
     }
 }
