@@ -3,8 +3,13 @@
 /// <summary>
 /// Options for configuring the <see cref="ProductboardClient"/>
 /// </summary>
-public class ProductboardClientOptions : ProductboardClientOptionsBase
+public class ProductboardClientOptions
 {
+    /// <summary>
+    /// The base URL for making requests to productboard
+    /// </summary>
+    public Uri BaseUrl { get; set; } = new Uri("https://api.productboard.com/");
+
     /// <summary>
     /// The token for authenticating to the productboard workspace.
     /// </summary>
