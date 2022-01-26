@@ -1,4 +1,5 @@
-﻿using productboard.Models;
+﻿using Microsoft.Extensions.Options;
+using productboard.Models;
 
 namespace productboard;
 
@@ -10,10 +11,17 @@ public class ProductboardGdprClient : ProductboardClientBase<ProductboardGdprCli
     /// <summary>
     /// Creates an instance if <see cref="ProductboardGdprClient"/>
     /// </summary>
-    /// <param name="httpClient"></param>
     /// <param name="options">The options for configuring the client</param>
-    public ProductboardGdprClient(ProductboardGdprClientOptions options, HttpClient? httpClient = null)
-        : base(options, httpClient) { }
+    public ProductboardGdprClient(ProductboardGdprClientOptions options)
+        : this(null, Microsoft.Extensions.Options.Options.Create(options)) { }
+
+    /// <summary>
+    /// Creates an instance if <see cref="ProductboardGdprClient"/>
+    /// </summary>
+    /// <param name="httpClient"></param>
+    /// <param name="optionsAccessor">The options for configuring the client</param>
+    public ProductboardGdprClient(HttpClient? httpClient, IOptions<ProductboardGdprClientOptions> optionsAccessor)
+        : base(optionsAccessor, httpClient) { }
 
     /// <summary>
     /// Delete data associated with a particular customer.

@@ -41,7 +41,7 @@ public class ProductboardGdprClientTests
         });
         var httpClient = new HttpClient(handler);
         var options = new ProductboardGdprClientOptions { Token = token };
-        var client = new ProductboardGdprClient(options, httpClient);
+        var client = new ProductboardGdprClient(httpClient, options);
         var response = await client.DeleteAllClientDataAsync(TestEmail);
         Assert.NotNull(response);
     }
@@ -76,7 +76,7 @@ public class ProductboardGdprClientTests
         });
         var httpClient = new HttpClient(handler);
         var options = new ProductboardGdprClientOptions { Token = token };
-        var client = new ProductboardGdprClient(options, httpClient);
+        var client = new ProductboardGdprClient(httpClient, options);
         var response = await client.DeleteAllClientDataAsync(TestEmail);
         Assert.NotNull(response);
         Assert.Equal(HttpStatusCode.Accepted, response.StatusCode);
@@ -116,7 +116,7 @@ public class ProductboardGdprClientTests
         });
         var httpClient = new HttpClient(handler);
         var options = new ProductboardGdprClientOptions { Token = token };
-        var client = new ProductboardGdprClient(options, httpClient);
+        var client = new ProductboardGdprClient(httpClient, options);
         var response = await client.DeleteAllClientDataAsync(TestEmail);
         Assert.NotNull(response);
         Assert.Equal(HttpStatusCode.Gone, response.StatusCode);

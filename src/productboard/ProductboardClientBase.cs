@@ -1,4 +1,5 @@
-﻿using productboard.Errors;
+﻿using Microsoft.Extensions.Options;
+using productboard.Errors;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Text.Encodings.Web;
@@ -18,15 +19,15 @@ public abstract class ProductboardClientBase<TOptions> where TOptions : Productb
     /// Creates an instance if <see cref="ProductboardClientBase{TOptions}"/>
     /// </summary>
     /// <param name="httpClient">The client for making HTTP requests</param>
-    /// <param name="options">The options for configuring the client</param>
-    protected ProductboardClientBase(TOptions options, HttpClient? httpClient = null)
+    /// <param name="optionsAccessor">The options for configuring the client</param>
+    protected ProductboardClientBase(IOptions<TOptions> optionsAccessor, HttpClient? httpClient)
     {
-        Options = options ?? throw new ArgumentNullException(nameof(options));
+        Options = optionsAccessor?.Value ?? throw new ArgumentNullException(nameof(optionsAccessor));
         BackChannel = httpClient ?? new HttpClient();
 
-        if (options.BaseUrl == null)
+        if (Options.BaseUrl == null)
         {
-            throw new ArgumentNullException(nameof(options.BaseUrl));
+            throw new ArgumentNullException(nameof(Options.BaseUrl));
         }
 
         // populate the User-Agent header

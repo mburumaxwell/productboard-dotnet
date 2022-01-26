@@ -59,7 +59,7 @@ public class ProductboardClientTests
         };
 
         var options = new ProductboardClientOptions { Token = token };
-        var client = new ProductboardClient(options, httpClient);
+        var client = new ProductboardClient(httpClient, options);
         var response = await client.CreateNoteAsync(note);
         Assert.NotNull(response);
     }
@@ -112,7 +112,7 @@ public class ProductboardClientTests
         };
 
         var options = new ProductboardClientOptions { Token = token };
-        var client = new ProductboardClient(options, httpClient);
+        var client = new ProductboardClient(httpClient, options);
         var response = await client.CreateNoteAsync(note);
         Assert.NotNull(response);
         Assert.Equal(HttpStatusCode.Created, response.StatusCode);
@@ -173,7 +173,7 @@ public class ProductboardClientTests
         };
 
         var options = new ProductboardClientOptions { Token = token };
-        var client = new ProductboardClient(options, httpClient);
+        var client = new ProductboardClient(httpClient, options);
         var response = await client.CreateNoteAsync(note);
         Assert.NotNull(response);
         Assert.Equal(HttpStatusCode.UnprocessableEntity, response.StatusCode);

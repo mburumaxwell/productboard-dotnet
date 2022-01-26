@@ -1,4 +1,5 @@
-﻿using productboard.Models;
+﻿using Microsoft.Extensions.Options;
+using productboard.Models;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Text.Json;
@@ -13,10 +14,17 @@ public class ProductboardClient : ProductboardClientBase<ProductboardClientOptio
     /// <summary>
     /// Creates an instance if <see cref="ProductboardClient"/>
     /// </summary>
-    /// <param name="httpClient"></param>
     /// <param name="options">The options for configuring the client</param>
-    public ProductboardClient(ProductboardClientOptions options, HttpClient? httpClient = null)
-        : base(options, httpClient) { }
+    public ProductboardClient(ProductboardClientOptions options)
+        : this(null, Microsoft.Extensions.Options.Options.Create(options)) { }
+
+    /// <summary>
+    /// Creates an instance if <see cref="ProductboardClient"/>
+    /// </summary>
+    /// <param name="httpClient"></param>
+    /// <param name="optionsAccessor">The options for configuring the client</param>
+    public ProductboardClient(HttpClient? httpClient, IOptions<ProductboardClientOptions> optionsAccessor)
+        : base(optionsAccessor, httpClient) { }
 
     /// <summary>
     /// Creates a note.
