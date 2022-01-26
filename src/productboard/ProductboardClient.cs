@@ -73,8 +73,8 @@ public class ProductboardClient
     /// <param name="options"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    public async Task<ProductboardResponse<PaginationResponse<Feature>>> GetFeatureAsync(FeaturesListOptions? options = null,
-                                                                                         CancellationToken cancellationToken = default)
+    public async Task<ProductboardResponse<PaginationResponse<Feature>>> GetFeaturesAsync(FeaturesListOptions? options = null,
+                                                                                          CancellationToken cancellationToken = default)
     {
         var url = MakePathWithQuery("/features", options);
         return await GetAsync<PaginationResponse<Feature>>(url, cancellationToken: cancellationToken);
