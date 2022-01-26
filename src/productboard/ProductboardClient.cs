@@ -73,6 +73,17 @@ public class ProductboardClient
 
     #endregion
 
+    #region Feature Statuses
+
+    public async Task<ProductboardResponse<ResourceWithPagination<FeatureStatus>>> GetFeatureStatusesAsync(BasicListOptions? pagination = null,
+                                                                                                           CancellationToken cancellationToken = default)
+    {
+        var url = MakePathWithQuery("/feature-statuses", pagination);
+        return await GetAsync<ResourceWithPagination<FeatureStatus>>(url, cancellationToken: cancellationToken);
+    }
+
+    #endregion
+
     #region Products
 
     public async Task<ProductboardResponse<ResourceWithPagination<Product>>> GetProductsAsync(BasicListOptions? pagination = null,
