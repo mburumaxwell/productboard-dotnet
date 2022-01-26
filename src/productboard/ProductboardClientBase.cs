@@ -13,7 +13,8 @@ namespace productboard;
 /// <typeparam name="TOptions"></typeparam>
 public abstract class ProductboardClientBase<TOptions> where TOptions : ProductboardClientOptionsBase
 {
-    private readonly JsonSerializerOptions serializerOptions = new JsonSerializerOptions(JsonSerializerDefaults.Web);
+    private readonly JsonSerializerOptions serializerOptions = new(JsonSerializerDefaults.Web);
+    private readonly HttpClient httpClient;
 
     /// <summary>
     /// Creates an instance if <see cref="ProductboardClientBase{TOptions}"/>
@@ -23,7 +24,7 @@ public abstract class ProductboardClientBase<TOptions> where TOptions : Productb
     protected ProductboardClientBase(IOptions<TOptions> optionsAccessor, HttpClient? httpClient)
     {
         Options = optionsAccessor?.Value ?? throw new ArgumentNullException(nameof(optionsAccessor));
-        BackChannel = httpClient ?? new HttpClient();
+        this.httpClient = httpClient ?? new HttpClient();
 
         if (Options.BaseUrl == null)
         {
@@ -33,7 +34,7 @@ public abstract class ProductboardClientBase<TOptions> where TOptions : Productb
         // populate the User-Agent header
         var productVersion = typeof(ProductboardClient).Assembly.GetName().Version!.ToString();
         var userAgent = new ProductInfoHeaderValue("productboard-dotnet", productVersion);
-        BackChannel.DefaultRequestHeaders.UserAgent.Add(userAgent);
+        this.httpClient.DefaultRequestHeaders.UserAgent.Add(userAgent);
 
         // prepare options for serialization
         serializerOptions = new JsonSerializerOptions(JsonSerializerDefaults.Web)
@@ -41,11 +42,6 @@ public abstract class ProductboardClientBase<TOptions> where TOptions : Productb
             Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping,
         };
     }
-
-    /// <summary>
-    /// The client for making HTTP requests
-    /// </summary>
-    protected HttpClient BackChannel { get; }
 
     /// <summary>
     /// The options for configuring the client
@@ -156,6 +152,6 @@ public abstract class ProductboardClientBase<TOptions> where TOptions : Productb
         Authenticate(request);
 
         // execute the request
-        return await BackChannel.SendAsync(request, cancellationToken);
+        return await httpClient.SendAsync(request, cancellationToken);
     }
 }
