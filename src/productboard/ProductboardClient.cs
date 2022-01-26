@@ -57,7 +57,7 @@ public class ProductboardClient
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
     public async Task<ProductboardResponse<NoteCreationResponse>> CreateNoteAsync(CreateNoteOptions options,
-                                                                                CancellationToken cancellationToken = default)
+                                                                                  CancellationToken cancellationToken = default)
     {
         // ensure note is not null
         if (options == null) throw new ArgumentNullException(nameof(options));
@@ -74,7 +74,7 @@ public class ProductboardClient
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
     public async Task<ProductboardResponse<PaginatedResponse<Feature>>> GetFeaturesAsync(FeaturesListOptions? options = null,
-                                                                                          CancellationToken cancellationToken = default)
+                                                                                         CancellationToken cancellationToken = default)
     {
         var url = MakePathWithQuery("/features", options);
         return await GetAsync<PaginatedResponse<Feature>>(url, cancellationToken: cancellationToken);
@@ -85,7 +85,7 @@ public class ProductboardClient
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
     public async Task<ProductboardResponse<DataResource<Feature>>> CreateFeatureAsync(FeatureCreateOptions options,
-                                                                                          CancellationToken cancellationToken = default)
+                                                                                      CancellationToken cancellationToken = default)
     {
         // ensure note is not null
         if (options == null) throw new ArgumentNullException(nameof(options));
@@ -98,7 +98,8 @@ public class ProductboardClient
     /// <param name="id">Unique identifier of the feature.</param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    public async Task<ProductboardResponse<DataResource<Feature>>> GetFeatureAsync(string id, CancellationToken cancellationToken = default)
+    public async Task<ProductboardResponse<DataResource<Feature>>> GetFeatureAsync(string id,
+                                                                                   CancellationToken cancellationToken = default)
     {
         if (string.IsNullOrWhiteSpace(id)) throw new ArgumentNullException(nameof(id));
 
@@ -112,8 +113,8 @@ public class ProductboardClient
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
     public async Task<ProductboardResponse<DataResource<Feature>>> UpdateFeatureAsync(string id,
-                                                                                          FeatureUpdateOptions options,
-                                                                                          CancellationToken cancellationToken = default)
+                                                                                      FeatureUpdateOptions options,
+                                                                                      CancellationToken cancellationToken = default)
     {
         if (string.IsNullOrWhiteSpace(id)) throw new ArgumentNullException(nameof(id));
 
@@ -131,7 +132,7 @@ public class ProductboardClient
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
     public async Task<ProductboardResponse<PaginatedResponse<Component>>> GetComponentsAsync(BasicListOptions? options = null,
-                                                                                              CancellationToken cancellationToken = default)
+                                                                                             CancellationToken cancellationToken = default)
     {
         var url = MakePathWithQuery("/components", options);
         return await GetAsync<PaginatedResponse<Component>>(url, cancellationToken: cancellationToken);
@@ -141,7 +142,8 @@ public class ProductboardClient
     /// <param name="id">Unique identifier of the component.</param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    public async Task<ProductboardResponse<DataResource<Component>>> GetComponentAsync(string id, CancellationToken cancellationToken = default)
+    public async Task<ProductboardResponse<DataResource<Component>>> GetComponentAsync(string id,
+                                                                                       CancellationToken cancellationToken = default)
     {
         if (string.IsNullOrWhiteSpace(id)) throw new ArgumentNullException(nameof(id));
 
@@ -158,7 +160,7 @@ public class ProductboardClient
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
     public async Task<ProductboardResponse<PaginatedResponse<Product>>> GetProductsAsync(BasicListOptions? options = null,
-                                                                                          CancellationToken cancellationToken = default)
+                                                                                         CancellationToken cancellationToken = default)
     {
         var url = MakePathWithQuery("/products", options);
         return await GetAsync<PaginatedResponse<Product>>(url, cancellationToken: cancellationToken);
@@ -168,7 +170,8 @@ public class ProductboardClient
     /// <param name="id">Unique identifier of the product.</param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    public async Task<ProductboardResponse<DataResource<Product>>> GetProductAsync(string id, CancellationToken cancellationToken = default)
+    public async Task<ProductboardResponse<DataResource<Product>>> GetProductAsync(string id,
+                                                                                   CancellationToken cancellationToken = default)
     {
         if (string.IsNullOrWhiteSpace(id)) throw new ArgumentNullException(nameof(id));
 
@@ -185,7 +188,7 @@ public class ProductboardClient
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
     public async Task<ProductboardResponse<PaginatedResponse<FeatureStatus>>> GetFeatureStatusesAsync(BasicListOptions? options = null,
-                                                                                                       CancellationToken cancellationToken = default)
+                                                                                                      CancellationToken cancellationToken = default)
     {
         var url = MakePathWithQuery("/feature-statuses", options);
         return await GetAsync<PaginatedResponse<FeatureStatus>>(url, cancellationToken: cancellationToken);
@@ -256,7 +259,8 @@ public class ProductboardClient
     /// <param name="path">The path to send to.</param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    protected virtual async Task<ProductboardResponse<TResource>> GetAsync<TResource>(string path, CancellationToken cancellationToken = default)
+    protected virtual async Task<ProductboardResponse<TResource>> GetAsync<TResource>(string path,
+                                                                                      CancellationToken cancellationToken = default)
     {
         var request = new HttpRequestMessage(HttpMethod.Get, path);
         return await SendAsync<TResource>(request, cancellationToken:  cancellationToken);
@@ -268,7 +272,9 @@ public class ProductboardClient
     /// <param name="payload">The payload to serialize into the body using JSON.</param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    protected virtual async Task<ProductboardResponse<TResource>> PostAsync<TResource>(string path, object? payload, CancellationToken cancellationToken = default)
+    protected virtual async Task<ProductboardResponse<TResource>> PostAsync<TResource>(string path,
+                                                                                       object? payload,
+                                                                                       CancellationToken cancellationToken = default)
     {
         var request = new HttpRequestMessage(HttpMethod.Post, path)
         {
@@ -283,7 +289,9 @@ public class ProductboardClient
     /// <param name="payload">The payload to serialize into the body using JSON.</param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    protected virtual async Task<ProductboardResponse<TResource>> PutAsync<TResource>(string path, object? payload, CancellationToken cancellationToken = default)
+    protected virtual async Task<ProductboardResponse<TResource>> PutAsync<TResource>(string path,
+                                                                                      object? payload,
+                                                                                      CancellationToken cancellationToken = default)
     {
         var request = new HttpRequestMessage(HttpMethod.Put, path)
         {
@@ -318,7 +326,8 @@ public class ProductboardClient
     /// <param name="response">The response message to extract from.</param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    protected virtual async Task<(TResource?, TError?)> ExtractResponseAsync<TResource, TError>(HttpResponseMessage response, CancellationToken cancellationToken = default)
+    protected virtual async Task<(TResource?, TError?)> ExtractResponseAsync<TResource, TError>(HttpResponseMessage response,
+                                                                                                CancellationToken cancellationToken = default)
     {
         // extract the response
 #if NET5_0_OR_GREATER
@@ -353,7 +362,9 @@ public class ProductboardClient
     /// <param name="authenticate">Whether to include the default authentication information.</param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    protected virtual async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, bool authenticate = true, CancellationToken cancellationToken = default)
+    protected virtual async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request,
+                                                                bool authenticate = true,
+                                                                CancellationToken cancellationToken = default)
     {
         // ensure request is not null
         if (request == null) throw new ArgumentNullException(nameof(request));
