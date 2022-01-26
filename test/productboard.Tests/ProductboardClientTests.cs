@@ -30,7 +30,7 @@ public class ProductboardClientTests
 
             Assert.Equal("/notes", req.RequestUri!.AbsolutePath);
 
-            var body = await req.Content!.ReadAsStringAsync();
+            var body = await req.Content!.ReadAsStringAsync(ct);
             Assert.Equal(JsonRequest, body);
             return new HttpResponseMessage
             {
@@ -81,7 +81,7 @@ public class ProductboardClientTests
 
             Assert.Equal("/notes", req.RequestUri!.AbsolutePath);
 
-            var body = await req.Content!.ReadAsStringAsync();
+            var body = await req.Content!.ReadAsStringAsync(ct);
             Assert.Equal(JsonRequest, body);
             return new HttpResponseMessage
             {
@@ -140,7 +140,7 @@ public class ProductboardClientTests
 
             Assert.Equal("/notes", req.RequestUri!.AbsolutePath);
 
-            var body = await req.Content!.ReadAsStringAsync();
+            var body = await req.Content!.ReadAsStringAsync(ct);
             Assert.Equal(JsonRequest, body);
             return new HttpResponseMessage
             {

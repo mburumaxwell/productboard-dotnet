@@ -108,25 +108,29 @@ public abstract class ProductboardClientBase<TOptions> where TOptions : Productb
     /// <returns></returns>
     protected virtual async Task<(TResource?, TError?)> ExtractResponseAsync<TResource, TError>(HttpResponseMessage response, CancellationToken cancellationToken = default)
     {
+        // extract the response
+#if NET5_0_OR_GREATER
+        using var stream = await response.Content.ReadAsStreamAsync(cancellationToken);
+#else
+        using var stream = await response.Content.ReadAsStreamAsync();
+#endif
+
         var resource = default(TResource);
         var error = default(TError);
 
-        using (var stream = await response.Content.ReadAsStreamAsync())
+        // get the content type
+        var contentType = response.Content.Headers?.ContentType;
+
+        // get the encoding and always default to UTF-8
+        var encoding = Encoding.GetEncoding(contentType?.CharSet ?? Encoding.UTF8.BodyName);
+
+        if (response.IsSuccessStatusCode)
         {
-            // get the content type
-            var contentType = response.Content.Headers?.ContentType;
-
-            // get the encoding and always default to UTF-8
-            var encoding = Encoding.GetEncoding(contentType?.CharSet ?? Encoding.UTF8.BodyName);
-
-            if (response.IsSuccessStatusCode)
-            {
-                resource = await JsonSerializer.DeserializeAsync<TResource>(stream, serializerOptions, cancellationToken);
-            }
-            else
-            {
-                error = await JsonSerializer.DeserializeAsync<TError>(stream, serializerOptions, cancellationToken);
-            }
+            resource = await JsonSerializer.DeserializeAsync<TResource>(stream, serializerOptions, cancellationToken);
+        }
+        else
+        {
+            error = await JsonSerializer.DeserializeAsync<TError>(stream, serializerOptions, cancellationToken);
         }
 
         return (resource, error);
