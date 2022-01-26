@@ -1,8 +1,6 @@
 ﻿using Microsoft.Extensions.Options;
 using productboard.Models;
 using System.Net.Http.Headers;
-using System.Text;
-using System.Text.Json;
 
 namespace productboard;
 

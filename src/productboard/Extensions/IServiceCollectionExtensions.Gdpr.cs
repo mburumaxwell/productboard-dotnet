@@ -1,5 +1,4 @@
-﻿using Microsoft.Extensions.DependencyInjection.Extensions;
-using productboard;
+﻿using productboard;
 
 namespace Microsoft.Extensions.DependencyInjection;
 
