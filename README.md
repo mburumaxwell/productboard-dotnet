@@ -1,5 +1,7 @@
 # productboard
 
+[![NuGet](https://img.shields.io/nuget/v/productboard.svg)](https://www.nuget.org/packages/productboard/)
+
 ## Introduction
 
 productboard makes it easier to manage customer feedback, and effectively build features that customers actually want.
