@@ -51,11 +51,11 @@ public class ProductboardClientTests
                 RecordId = "123",
             },
             Tags = new List<string>
-                {
-                    "3.0",
-                    "important",
-                    "experimental",
-                },
+            {
+                "3.0",
+                "important",
+                "experimental",
+            },
         };
 
         var options = new ProductboardClientOptions { Token = token };
@@ -104,11 +104,11 @@ public class ProductboardClientTests
                 RecordId = "123",
             },
             Tags = new List<string>
-                {
-                    "3.0",
-                    "important",
-                    "experimental",
-                },
+            {
+                "3.0",
+                "important",
+                "experimental",
+            },
         };
 
         var options = new ProductboardClientOptions { Token = token };
@@ -165,11 +165,11 @@ public class ProductboardClientTests
                 RecordId = "123",
             },
             Tags = new List<string>
-                {
-                    "3.0",
-                    "important",
-                    "experimental",
-                },
+            {
+                "3.0",
+                "important",
+                "experimental",
+            },
         };
 
         var options = new ProductboardClientOptions { Token = token };
