@@ -69,21 +69,6 @@ public class ProductboardClient
 
     #endregion
 
-    #region Feature Statuses
-
-    /// <summary>Get all feature statuses.</summary>
-    /// <param name="options"></param>
-    /// <param name="cancellationToken"></param>
-    /// <returns></returns>
-    public async Task<ProductboardResponse<PaginationResource<FeatureStatus>>> GetFeatureStatusesAsync(BasicListOptions? options = null,
-                                                                                                       CancellationToken cancellationToken = default)
-    {
-        var url = MakePathWithQuery("/feature-statuses", options);
-        return await GetAsync<PaginationResource<FeatureStatus>>(url, cancellationToken: cancellationToken);
-    }
-
-    #endregion
-
     #region Components
 
     /// <summary>Get all components.</summary>
@@ -134,6 +119,21 @@ public class ProductboardClient
 
         var path = $"/products/{id}";
         return await GetAsync<ResourceWithData<Product>>(path, cancellationToken: cancellationToken);
+    }
+
+    #endregion
+
+    #region Feature Statuses
+
+    /// <summary>Get all feature statuses.</summary>
+    /// <param name="options"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    public async Task<ProductboardResponse<PaginationResource<FeatureStatus>>> GetFeatureStatusesAsync(BasicListOptions? options = null,
+                                                                                                       CancellationToken cancellationToken = default)
+    {
+        var url = MakePathWithQuery("/feature-statuses", options);
+        return await GetAsync<PaginationResource<FeatureStatus>>(url, cancellationToken: cancellationToken);
     }
 
     #endregion
