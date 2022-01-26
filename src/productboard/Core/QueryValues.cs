@@ -5,7 +5,7 @@ using System.Text.Encodings.Web;
 namespace productboard.Core;
 
 /// <summary>Helper for handling query values.</summary>
-public sealed class QueryValues : IEnumerable<KeyValuePair<string, string>>
+internal class QueryValues : IEnumerable<KeyValuePair<string, string>>
 {
     private readonly Dictionary<string, string> values;
 
