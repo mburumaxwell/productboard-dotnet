@@ -73,11 +73,11 @@ public class ProductboardClient
     /// <param name="options"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    public async Task<ProductboardResponse<PaginationResponse<Feature>>> GetFeaturesAsync(FeaturesListOptions? options = null,
+    public async Task<ProductboardResponse<PaginatedResponse<Feature>>> GetFeaturesAsync(FeaturesListOptions? options = null,
                                                                                           CancellationToken cancellationToken = default)
     {
         var url = MakePathWithQuery("/features", options);
-        return await GetAsync<PaginationResponse<Feature>>(url, cancellationToken: cancellationToken);
+        return await GetAsync<PaginatedResponse<Feature>>(url, cancellationToken: cancellationToken);
     }
 
     /// <summary>Create a feature.</summary>
@@ -130,11 +130,11 @@ public class ProductboardClient
     /// <param name="options"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    public async Task<ProductboardResponse<PaginationResponse<Component>>> GetComponentsAsync(BasicListOptions? options = null,
+    public async Task<ProductboardResponse<PaginatedResponse<Component>>> GetComponentsAsync(BasicListOptions? options = null,
                                                                                               CancellationToken cancellationToken = default)
     {
         var url = MakePathWithQuery("/components", options);
-        return await GetAsync<PaginationResponse<Component>>(url, cancellationToken: cancellationToken);
+        return await GetAsync<PaginatedResponse<Component>>(url, cancellationToken: cancellationToken);
     }
 
     /// <summary>Get a component.</summary>
@@ -157,11 +157,11 @@ public class ProductboardClient
     /// <param name="options"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    public async Task<ProductboardResponse<PaginationResponse<Product>>> GetProductsAsync(BasicListOptions? options = null,
+    public async Task<ProductboardResponse<PaginatedResponse<Product>>> GetProductsAsync(BasicListOptions? options = null,
                                                                                           CancellationToken cancellationToken = default)
     {
         var url = MakePathWithQuery("/products", options);
-        return await GetAsync<PaginationResponse<Product>>(url, cancellationToken: cancellationToken);
+        return await GetAsync<PaginatedResponse<Product>>(url, cancellationToken: cancellationToken);
     }
 
     /// <summary>Get a product.</summary>
@@ -184,11 +184,11 @@ public class ProductboardClient
     /// <param name="options"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    public async Task<ProductboardResponse<PaginationResponse<FeatureStatus>>> GetFeatureStatusesAsync(BasicListOptions? options = null,
+    public async Task<ProductboardResponse<PaginatedResponse<FeatureStatus>>> GetFeatureStatusesAsync(BasicListOptions? options = null,
                                                                                                        CancellationToken cancellationToken = default)
     {
         var url = MakePathWithQuery("/feature-statuses", options);
-        return await GetAsync<PaginationResponse<FeatureStatus>>(url, cancellationToken: cancellationToken);
+        return await GetAsync<PaginatedResponse<FeatureStatus>>(url, cancellationToken: cancellationToken);
     }
 
     #endregion
