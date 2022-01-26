@@ -5,13 +5,11 @@ namespace productboard.Models;
 /// <summary>
 /// The result returned after creating a note
 /// </summary>
-public class NoteCreationResult
+public class NoteCreationResult : IHasResourceLinks
 {
-    /// <summary>
-    /// Links for accessing the created note
-    /// </summary>
+    /// <summary>Links for accessing the created note</summary>
     [JsonPropertyName("links")]
-    public NoteLinks? Links { get; set; }
+    public ResourceLinks? Links { get; set; }
 
     /// <summary>
     /// Data about the created note
