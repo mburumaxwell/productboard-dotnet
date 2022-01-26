@@ -39,9 +39,7 @@ public static partial class IServiceCollectionExtensions
 
              });
 
-        services.TryAddTransient<ProductboardGdprClient>(resolver => resolver.GetRequiredService<InjectableProductboardGdprClient>());
-
-        return services.AddHttpClient<InjectableProductboardGdprClient>();
+        return services.AddHttpClient<ProductboardGdprClient>();
     }
 
     /// <summary>

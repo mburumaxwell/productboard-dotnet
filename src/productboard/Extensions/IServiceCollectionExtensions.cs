@@ -1,5 +1,4 @@
-﻿using Microsoft.Extensions.DependencyInjection.Extensions;
-using productboard;
+﻿using productboard;
 
 namespace Microsoft.Extensions.DependencyInjection;
 
@@ -24,24 +23,21 @@ public static partial class IServiceCollectionExtensions
             services.Configure(configureOptions);
         }
 
-        services
-             .PostConfigure<ProductboardClientOptions>(o =>
-             {
-                 if (string.IsNullOrWhiteSpace(o.Token))
-                 {
-                     throw new ArgumentNullException(nameof(o.Token));
-                 }
+        services.PostConfigure<ProductboardClientOptions>(o =>
+        {
+            if (string.IsNullOrWhiteSpace(o.Token))
+            {
+                throw new ArgumentNullException(nameof(o.Token));
+            }
 
-                 if (o.BaseUrl == null)
-                 {
-                     throw new ArgumentNullException(nameof(o.BaseUrl));
-                 }
+            if (o.BaseUrl == null)
+            {
+                throw new ArgumentNullException(nameof(o.BaseUrl));
+            }
 
-             });
+        });
 
-        services.TryAddTransient<ProductboardClient>(resolver => resolver.GetRequiredService<InjectableProductboardClient>());
-
-        return services.AddHttpClient<InjectableProductboardClient>();
+        return services.AddHttpClient<ProductboardClient>();
     }
 
     /// <summary>
@@ -56,9 +52,6 @@ public static partial class IServiceCollectionExtensions
     /// <returns>An <see cref="IHttpClientBuilder" /> that can be used to configure the client.</returns>
     public static IHttpClientBuilder AddProductboard(this IServiceCollection services, string token)
     {
-        return services.AddProductboard(o =>
-        {
-            o.Token = token;
-        });
+        return services.AddProductboard(o => o.Token = token);
     }
 }
