@@ -13,7 +13,13 @@ namespace productboard;
 /// <typeparam name="TOptions"></typeparam>
 public abstract class ProductboardClientBase<TOptions> where TOptions : ProductboardClientOptionsBase
 {
-    private readonly JsonSerializerOptions serializerOptions = new(JsonSerializerDefaults.Web);
+    // no need to create this options every time a client is created
+    private static readonly JsonSerializerOptions serializerOptions = new(JsonSerializerDefaults.Web)
+    {
+        // Some content contains HTML which need special handling in JSON
+        Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping,
+    };
+
     private readonly HttpClient httpClient;
 
     /// <summary>
@@ -42,12 +48,6 @@ public abstract class ProductboardClientBase<TOptions> where TOptions : Productb
         var productVersion = typeof(ProductboardClient).Assembly.GetName().Version!.ToString();
         var userAgent = new ProductInfoHeaderValue("productboard-dotnet", productVersion);
         this.httpClient.DefaultRequestHeaders.UserAgent.Add(userAgent);
-
-        // prepare options for serialization
-        serializerOptions = new JsonSerializerOptions(JsonSerializerDefaults.Web)
-        {
-            Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping,
-        };
     }
 
     /// <summary>
