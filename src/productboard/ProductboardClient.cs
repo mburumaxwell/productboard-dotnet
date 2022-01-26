@@ -37,12 +37,9 @@ public class ProductboardClient : ProductboardClientBase<ProductboardClientOptio
         // ensure note is not null
         if (note == null) throw new ArgumentNullException(nameof(note));
 
-        var json = JsonSerializer.Serialize(note, SerializerOptions);
-        var content = new StringContent(json, Encoding.UTF8, "application/json");
-
         var request = new HttpRequestMessage(HttpMethod.Post, "/notes")
         {
-            Content = content,
+            Content = MakeJsonHttpContent(note),
         };
 
         return await SendAsync<NoteCreationResult>(request, cancellationToken);

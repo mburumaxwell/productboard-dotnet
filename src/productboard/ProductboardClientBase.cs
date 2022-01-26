@@ -50,11 +50,6 @@ public abstract class ProductboardClientBase<TOptions> where TOptions : Productb
     }
 
     /// <summary>
-    /// The settings used for serialization
-    /// </summary>
-    protected JsonSerializerOptions SerializerOptions => serializerOptions;
-
-    /// <summary>
     /// Authenticate a request before it is sent
     /// </summary>
     /// <param name="request">The request to be authenticated</param>
@@ -126,11 +121,11 @@ public abstract class ProductboardClientBase<TOptions> where TOptions : Productb
 
             if (response.IsSuccessStatusCode)
             {
-                resource = await JsonSerializer.DeserializeAsync<TResource>(stream, SerializerOptions, cancellationToken);
+                resource = await JsonSerializer.DeserializeAsync<TResource>(stream, serializerOptions, cancellationToken);
             }
             else
             {
-                error = await JsonSerializer.DeserializeAsync<TError>(stream, SerializerOptions, cancellationToken);
+                error = await JsonSerializer.DeserializeAsync<TError>(stream, serializerOptions, cancellationToken);
             }
         }
 
@@ -155,5 +150,18 @@ public abstract class ProductboardClientBase<TOptions> where TOptions : Productb
 
         // execute the request
         return await httpClient.SendAsync(request, cancellationToken);
+    }
+
+    /// <summary>
+    /// Make an instance of <see cref="StreamContent"/> with JSON content from the provided object
+    /// </summary>
+    /// <param name="o">the object to to write</param>
+    /// <param name="encoding">the encoding to use</param>
+    /// <returns></returns>
+    protected HttpContent MakeJsonHttpContent(object o, Encoding? encoding = null)
+    {
+        encoding ??= Encoding.UTF8;
+        var json = JsonSerializer.Serialize(o, serializerOptions);
+        return new StringContent(json, encoding, "application/json");
     }
 }
