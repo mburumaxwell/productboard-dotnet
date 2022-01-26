@@ -192,6 +192,13 @@ public class ProductboardClient
             request.Headers.TryAddWithoutValidation("X-Version", "1");
         }
 
+        // set the partner header
+        var partnerId = options.PartnerId;
+        if (!string.IsNullOrEmpty(partnerId))
+        {
+            request.Headers.TryAddWithoutValidation("Productboard-Partner-Id", partnerId);
+        }
+
         // execute the request
         return await httpClient.SendAsync(request, cancellationToken);
     }

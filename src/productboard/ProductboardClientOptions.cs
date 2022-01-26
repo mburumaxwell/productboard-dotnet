@@ -37,4 +37,11 @@ public class ProductboardClientOptions
     /// </remarks>
     public string? GdprToken { get; set; }
 
+    /// <summary>
+    /// If your service integrates with Productboard and you want to take credits,
+    /// set this value with your unique partner ID to the appropriate requests.
+    /// <br/>
+    /// Please ask your Productboard representative to create or revoke your partner ID.
+    /// </summary>
+    public string? PartnerId { get; set; }
 }
