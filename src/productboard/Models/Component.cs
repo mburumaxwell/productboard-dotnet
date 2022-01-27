@@ -24,5 +24,11 @@ public record Component : IHasResourceLinks
     [JsonPropertyName("links")]
     public ResourceLinks? Links { get; set; }
 
-    // TODO: handle parent (AnyOf: Product/Component)
+    /// <summary>
+    /// Parent of the component.
+    /// Can be either a component or a product.
+    /// Exactly one of these has to be present.
+    /// </summary>
+    [JsonPropertyName("parent")]
+    public ComponentParent? Parent { get; set; }
 }
