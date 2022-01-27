@@ -28,7 +28,13 @@ public class FeatureCreateOptions
     [JsonPropertyName("status")]
     public FeatureStatus? Status { get; set; }
 
-    // TODO: handle parent (AnyOf: Product/Component/Feature)
+    /// <summary>
+    /// Parent of the feature.
+    /// Can be either a feature, a component or a product.
+    /// Exactly one of these has to be present.
+    /// </summary>
+    [JsonPropertyName("parent")]
+    public FeatureParent? Parent { get; set; }
 
     /// <summary>
     /// A flag denoting if the feature is archived.
