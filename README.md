@@ -26,11 +26,11 @@ You can get a GDPR token from the portal:
 
 The APIs used to create Notes and the one used to delete all customer data are different even though they share the same base address (https://api.productboard.com). They use different tokens. Using one for the other will result in 401 (Unauthorized). Ensure you use the correct token for the usage you have.
 
-This library is build using the publicly available documentation. The one for the Public API is available at [https://developer.productboard.com](https://developer.productboard.com). Whereas the one for the GDPR Public API is available in the help docs at [https://help.productboard.com/en/articles/1947849-delete-customer-data-from-productboard](https://help.productboard.com/en/articles/1947849-delete-customer-data-from-productboard).
-
-### Naming
+This library is built using the publicly available documentation. The one for the Public API is available at [https://developer.productboard.com](https://developer.productboard.com). Whereas the one for the GDPR Public API is available in the help docs at [https://help.productboard.com/en/articles/1947849-delete-customer-data-from-productboard](https://help.productboard.com/en/articles/1947849-delete-customer-data-from-productboard).
 
 The product and company name is productboard. For more information on how to spell see the specific FAQ [https://help.productboard.com/en/articles/2705293-how-to-spell-productboard](https://help.productboard.com/en/articles/2705293-how-to-spell-productboard). However, in .NET it is recommended that names of types, methods and properties start with a capital letter. This is why I chose to change the first letter for the types but retained everything else as is.
+
+> This library has changes as per [changelog](https://developer.productboard.com/#section/Versioning-and-compatibility/Changelog) upto **2022-01-25**
 
 ### Installation
 
