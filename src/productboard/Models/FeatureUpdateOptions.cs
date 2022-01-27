@@ -35,8 +35,6 @@ public class FeatureUpdateOptions
     [JsonPropertyName("status")]
     public FeatureStatus? Status { get; set; }
 
-    // TODO: handle parent (AnyOf: Product/Component/Feature)
-
     /// <summary>
     /// Feature timeframe.
     /// If null, the timeframe will not be set.
