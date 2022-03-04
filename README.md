@@ -30,7 +30,7 @@ This library is built using the publicly available documentation. The one for th
 
 The product and company name is productboard. For more information on how to spell see the specific FAQ [https://help.productboard.com/en/articles/2705293-how-to-spell-productboard](https://help.productboard.com/en/articles/2705293-how-to-spell-productboard). However, in .NET it is recommended that names of types, methods and properties start with a capital letter. This is why I chose to change the first letter for the types but retained everything else as is.
 
-> This library has changes as per [changelog](https://developer.productboard.com/#section/Versioning-and-compatibility/Changelog) upto **2022-01-25**
+> This library has changes as per [changelog](https://developer.productboard.com/#section/Versioning-and-compatibility/Changelog) up to **2022-01-25**
 
 ### Installation
 
