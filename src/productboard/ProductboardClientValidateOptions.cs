@@ -5,7 +5,7 @@ namespace Microsoft.Extensions.DependencyInjection;
 
 internal class ProductboardClientValidateOptions : IValidateOptions<ProductboardClientOptions>
 {
-    public ValidateOptionsResult Validate(string name, ProductboardClientOptions options)
+    public ValidateOptionsResult Validate(string? name, ProductboardClientOptions options)
     {
         if (options.Endpoint is null)
         {

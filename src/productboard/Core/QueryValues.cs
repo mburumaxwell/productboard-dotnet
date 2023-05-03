@@ -23,7 +23,7 @@ internal class QueryValues : IEnumerable<KeyValuePair<string, string>>
     {
         if (!string.IsNullOrWhiteSpace(value))
         {
-            values.Add(key, value);
+            values.Add(key, value!);
         }
 
         return this;
