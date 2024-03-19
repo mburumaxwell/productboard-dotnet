@@ -1,3 +1,6 @@
+> [!WARNING]
+> NO LONGER MAINTAINED BECAUSE I NOT LONGER USE PRODUCTBOARD
+
 # productboard
 
 [![NuGet](https://img.shields.io/nuget/v/productboard.svg)](https://www.nuget.org/packages/productboard/)
